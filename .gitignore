@@ -41,3 +41,22 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.cache
+RateCalculationSystem/RateCalculationSystem/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+RateCalculationSystem/RateCalculationSystem/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+RateCalculationSystem/RateCalculationSystem/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+RateCalculationSystem/RateCalculationSystem/obj/Release/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+RateCalculationSystem/RateCalculationSystem/obj/Release/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+RateCalculationSystem/RateCalculationSystem/obj/Release/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+RateCalculationSystem/RateCalculationSystem/obj/Release/RateCalculationSystem.csproj.FileListAbsolute.txt
+RateCalculationSystem/RateCalculationSystem/bin/Release/Quote.exe.config
+RateCalculationSystem/RateCalculationSystem/bin/Release/Quote.vshost.exe
+RateCalculationSystem/RateCalculationSystem/bin/Release/Quote.vshost.exe.config
+RateCalculationSystem/RateCalculationSystem/bin/Release/Quote.vshost.exe.manifest
+RateCalculationSystem/RateCalculationSystemTest/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+RateCalculationSystem/RateCalculationSystemTest/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+RateCalculationSystem/RateCalculationSystemTest/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+RateCalculationSystem/RateCalculationSystemTest/obj/Release/build.force
+RateCalculationSystem/RateCalculationSystemTest/obj/Release/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+RateCalculationSystem/RateCalculationSystemTest/obj/Release/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+RateCalculationSystem/RateCalculationSystemTest/obj/Release/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
