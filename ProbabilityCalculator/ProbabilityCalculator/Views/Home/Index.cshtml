@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Probability Calculator";
+}
+
+<h1>Welcome to Probability Calculator</h1>
+
+<em>Please enter two probabilities and select the type of calculations.</em>
+
+<form name="calculatorForm" ng-app="calculatorApp" ng-controller="calculatorCtrl" novalidate>
+    <p>
+        Probability A:
+        <input type="number" min="0" max="1" ng-model="probA" name="probA" required />
+        <span style="color:red" ng-show="calculatorForm.probA.$dirty && calculatorForm.probA.$invalid">
+            <span ng-show="calculatorForm.probA.$error.required">Probability A is required.</span>
+            <span ng-show="calculatorForm.probA.$invalid">Probability A is invalid.</span>
+        </span>
+    </p>
+    <p>
+        Probability B:
+        <input type="number" min="0" max="1" ng-model="probB" name="probB" required />
+        <span style="color:red" ng-show="calculatorForm.probB.$dirty && calculatorForm.probB.$invalid">
+            <span ng-show="calculatorForm.probB.$error.required">Probability B is required.</span>
+            <span ng-show="calculatorForm.probB.$invalid">Probability B is invalid.</span>
+        </span>
+    </p>
+    <p>
+        Function Type:
+        <br />
+        <input type="radio" ng-model="funcType" value="CombinedWith" />
+        Combined With
+        <br />
+        <input type="radio" ng-model="funcType" value="Either" />
+        Either
+    </p>
+    <p>Result: <span ng-hide="calculatorForm.probA.$dirty && calculatorForm.probA.$invalid || calculatorForm.probB.$dirty && calculatorForm.probB.$invalid">{{result}}</span></p>
+    <p>
+        <button class="btn btn-primary btn-lg" ng-click="getResult()" 
+            ng-disabled="calculatorForm.probA.$dirty && calculatorForm.probA.$invalid || calculatorForm.probB.$dirty && calculatorForm.probB.$invalid">Calculate</button>
+    </p>
+    <p>Post data: {{data}}</p>
+    <script>
+        var app = angular.module('calculatorApp', []);
+        app.controller('calculatorCtrl', function($scope, $http) {
+            $scope.probA = 0.0;
+            $scope.probB = 0.0;
+            $scope.funcType = 'CombinedWith';
+            $scope.getResult = function () {
+                calculateProbability($scope);
+                recordCalculation($scope, $http);
+            }
+        });
+
+        function calculateProbability($scope) {
+            if ($scope.funcType == 'CombinedWith') $scope.result = $scope.probA * $scope.probB;
+            else if ($scope.funcType == 'Either') $scope.result = $scope.probA + $scope.probB - $scope.probA * $scope.probB;
+        }
+
+        function recordCalculation($scope, $http) {
+            var calc = { RecordDateTime: new Date(), FunctionType: $scope.funcType, ProbabilityA: $scope.probA, ProbabilityB: $scope.probB, Result: $scope.result };
+            var data = { CalculationRecord: calc };
+            $scope.data = data;
+
+            $http({
+                method: 'POST',
+                url: '/api/Record/SaveCalculation',
+                data: data,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).success(function (response) { });
+        }
+    </script>
+</form>

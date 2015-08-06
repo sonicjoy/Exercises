@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProbabilityCalculator", "ProbabilityCalculator\ProbabilityCalculator.csproj", "{1658DB24-8675-4680-A739-27F5B8DB499E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProbabilityCalculatorTest", "ProbabilityCalculatorTest\ProbabilityCalculatorTest.csproj", "{97B131D7-5BBD-4733-9D74-70FB82C9274D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1658DB24-8675-4680-A739-27F5B8DB499E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1658DB24-8675-4680-A739-27F5B8DB499E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1658DB24-8675-4680-A739-27F5B8DB499E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1658DB24-8675-4680-A739-27F5B8DB499E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97B131D7-5BBD-4733-9D74-70FB82C9274D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97B131D7-5BBD-4733-9D74-70FB82C9274D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97B131D7-5BBD-4733-9D74-70FB82C9274D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97B131D7-5BBD-4733-9D74-70FB82C9274D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
