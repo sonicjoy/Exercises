@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Now On Air</h1>
+    <p class="lead">Enter url to get the playlist.</p>
+    <div class="input-group input-group-lg">
+        <input type="text" class="form-control text-center text-primary" placeholder="Enter the url...or leave it empty for test data" ng-model="url" />
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" ng-click="getPlaylist(url)">Go!</button>
+        </span>
+    </div>
+    <div ng-hide="error == undefined" class="alert alert-danger">{{error}}</div>
+</div>
+
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Playlist</div>
+        <table class="table table-responsive table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cover</th>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Duration</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in playlist" 
+                    ng-class="{'success':item.Status=='playing','warning':item.Status=='history','danger':item.Status=='invalid'}">
+                    <td>{{$index + 1}}</td>
+                    <td>
+                        <img ng-hide="item.ImageUrl =='bad-image'" ng-src="{{item.ImageUrl.replace('bad-image','//:0')}}" class="thumbnail img-responsive mg-image" 
+                             ng-class="{'small':item.Status != 'playing'}" />
+                        <span ng-show="item.ImageUrl == 'bad-image'" title="Bad Image Link" class="bad-image-span glyphicon glyphicon-align-center glyphicon-ban-circle"></span>
+                    </td>
+                    <td><span class="glyphicon" title="{{item.Type}}" ng-class="{'glyphicon-music':item.Type=='song'}"></span></td>
+                    <td>{{item.Title}}</td>
+                    <td>{{item.Artist}}</td>
+                    <td>{{item.Duration}}</td>
+                    <td>{{item.Time | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                    <td><span class="glyphicon" title="{{item.Status}}" ng-class="{'glyphicon-headphones':item.Status=='playing',
+                            'glyphicon-time':item.Status=='history','glyphicon-exclamation-sign':item.Status=='invalid'}"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
