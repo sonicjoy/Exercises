@@ -51,7 +51,7 @@ namespace WebLoginViewer
             foreach(var line in textLines)
             {
                 var stringList = line.Split(' ');
-                if (stringList.Length < 2) throw new FormatException();
+                if (stringList.Length < 2) continue;
 
                 var websiteName = stringList[0];
                 var websiteUrl = stringList[1];
@@ -59,7 +59,7 @@ namespace WebLoginViewer
                 foreach (var value in stringList.Skip(2))
                     credentialValues.Add(new Credential(value));
 
-                if (!websiteList.Keys.Contains(websiteName))
+                if (!websiteList.ContainsKey(websiteName))
                     websiteList[websiteName] = new Website(websiteName, websiteUrl);
                 websiteList[websiteName].Credentials.AddRange(credentialValues);
             }
