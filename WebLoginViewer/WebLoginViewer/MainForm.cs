@@ -39,16 +39,23 @@ namespace WebLoginViewer
             }
         }
 
-        public Dictionary<string, List<Credential>> BuildWebsiteList(string[] textLines)
+        public Dictionary<string, Website> BuildWebsiteList(string[] textLines)
         {
-            var websiteDict = new Dictionary<string, List<Credential>>();
+            var websiteDict = new Dictionary<string, Website>();
             foreach(var line in textLines)
             {
                 var stringList = line.Split(' ');
                 if (stringList.Length < 2) throw new FormatException();
-                var websiteName = stringList[0];
-                var credentials = new List<string>(stringList.Skip(2));
 
+                var websiteName = stringList[0];
+                var websiteUrl = stringList[1];
+                var credentialValues = new List<Credential>();
+                foreach (var value in stringList.Skip(2))
+                    credentialValues.Add(new Credential(value));
+
+                if (!websiteDict.Keys.Contains(websiteName))
+                    websiteDict[websiteName] = new Website(websiteName, websiteUrl);
+                websiteDict[websiteName].Credentials.AddRange(credentialValues);
             }
             return websiteDict;
         }

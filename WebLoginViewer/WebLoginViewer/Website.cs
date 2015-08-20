@@ -17,7 +17,7 @@ namespace WebLoginViewer
 
         public string Name { get; set; }
         public string Url { get; set; }
-        public IEnumerable<Credential> Credentials { get; set; }
+        public List<Credential> Credentials { get; set; }
 
         public bool IsOnline
         {

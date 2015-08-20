@@ -26,8 +26,29 @@ namespace WebLoginViewer.Tests
         public void BuildWebsiteList_Should_Return_List_Of_Websites()
         {
             var websiteList = form.BuildWebsiteList(textLines);
-            Assert.IsInstanceOfType(websiteList, typeof(Dictionary<string, List<Credential>>));
+            Assert.IsInstanceOfType(websiteList, typeof(Dictionary<string, Website>));
             Assert.IsTrue(websiteList.Any());
+        }
+
+        [TestMethod]
+        public void Website_Should_Be_Identify_By_Its_Name_Only()
+        {
+            var websiteList = form.BuildWebsiteList(textLines);
+            Assert.AreEqual(3, websiteList.Count);
+        }
+
+        [TestMethod]
+        public void Website_Credentials_Should_Be_Grouped_By_Website_Names()
+        {
+            var websiteList = form.BuildWebsiteList(textLines);
+            Assert.AreEqual(3, websiteList["Googlemail"].Credentials.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void If_Anyline_Contains_Less_Than_2_Strings_Throw_Exception()
+        {
+            var websiteList = form.BuildWebsiteList(new string[] { "NowOnAir" });
         }
 
     }
