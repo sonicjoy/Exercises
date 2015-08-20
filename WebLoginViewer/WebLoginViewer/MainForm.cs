@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -39,18 +40,20 @@ namespace WebLoginViewer
                             var listViewItem = new ListViewItem(new string[] { website.Key, website.Value.Credentials.Count.ToString(), website.Value.IsOnline.ToString() });
                             listView.Items.Add(listViewItem);
                         }
-                        totalLoginLabel.Text = websiteList.Values.Sum(w => w.Credentials.Count).ToString();
+                        totalLoginLabel.Text = websiteList.Sum(w => w.Value.Credentials.Count).ToString();
+                        fileNameLabel.Text = file;
                     }
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                 }
             }
         }
 
-        public Dictionary<string, Website> BuildWebsiteList(string[] textLines)
+        public SortedList<string, Website> BuildWebsiteList(string[] textLines)
         {
-            var websiteDict = new Dictionary<string, Website>();
+            var websiteList = new SortedList<string, Website>();
             foreach(var line in textLines)
             {
                 var stringList = line.Split(' ');
@@ -62,11 +65,11 @@ namespace WebLoginViewer
                 foreach (var value in stringList.Skip(2))
                     credentialValues.Add(new Credential(value));
 
-                if (!websiteDict.Keys.Contains(websiteName))
-                    websiteDict[websiteName] = new Website(websiteName, websiteUrl);
-                websiteDict[websiteName].Credentials.AddRange(credentialValues);
+                if (!websiteList.Keys.Contains(websiteName))
+                    websiteList[websiteName] = new Website(websiteName, websiteUrl);
+                websiteList[websiteName].Credentials.AddRange(credentialValues);
             }
-            return websiteDict;
+            return websiteList;
         }
     }
 }

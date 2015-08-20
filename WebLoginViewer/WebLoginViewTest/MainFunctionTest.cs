@@ -26,7 +26,7 @@ namespace WebLoginViewer.Tests
         public void BuildWebsiteList_Should_Return_List_Of_Websites()
         {
             var websiteList = form.BuildWebsiteList(textLines);
-            Assert.IsInstanceOfType(websiteList, typeof(Dictionary<string, Website>));
+            Assert.IsInstanceOfType(websiteList, typeof(SortedList<string, Website>));
             Assert.IsTrue(websiteList.Any());
         }
 
@@ -42,6 +42,13 @@ namespace WebLoginViewer.Tests
         {
             var websiteList = form.BuildWebsiteList(textLines);
             Assert.AreEqual(3, websiteList["Googlemail"].Credentials.Count);
+        }
+
+        [TestMethod]
+        public void Website_List_Should_Be_In_Alphabetical_Order()
+        {
+            var websiteList = form.BuildWebsiteList(textLines);
+            Assert.IsTrue(websiteList.IndexOfKey("Westlaw") > websiteList.IndexOfKey("Factiva"));
         }
 
         [TestMethod]
