@@ -17,7 +17,7 @@ namespace WebLoginViewer
 
         public string Name { get; set; }
         public string Url { get; set; }
-        public List<Credential> Credentials { get; set; }
+        public IEnumerable<Credential> Credentials { get; set; }
 
         public bool IsOnline
         {
@@ -28,14 +28,19 @@ namespace WebLoginViewer
         }
     }
 
-    public class Credential
+    public interface ICredential<T>
     {
-        public Credential(List<string> stringList)
+        T Values { set; get; }
+    }
+
+    public class Credential : ICredential<string>
+    {
+        public Credential(string value)
         {
-            Values = stringList;
+            Values = value;
         }
 
-        public List<string> Values { get; set; }
+        public string Values { get; set; }
     }
 
     public static class WebSiteChecker

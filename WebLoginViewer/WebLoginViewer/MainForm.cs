@@ -39,15 +39,15 @@ namespace WebLoginViewer
             }
         }
 
-        public Dictionary<KeyValuePair<string, string>, List<Credential>> BuildWebsiteList(string[] textLines)
+        public Dictionary<string, List<Credential>> BuildWebsiteList(string[] textLines)
         {
-            var websiteDict = new Dictionary<KeyValuePair<string, string>, List<Credential>>();
+            var websiteDict = new Dictionary<string, List<Credential>>();
             foreach(var line in textLines)
             {
                 var stringList = line.Split(' ');
                 if (stringList.Length < 2) throw new FormatException();
-                var websitePair = new KeyValuePair<string, string>(stringList[0], stringList[1]);
-                var credential = new Credential(new List<string>(stringList.Skip(2)));
+                var websiteName = stringList[0];
+                var credentials = new List<string>(stringList.Skip(2));
 
             }
             return websiteDict;

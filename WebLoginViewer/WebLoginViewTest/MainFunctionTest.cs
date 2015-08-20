@@ -26,7 +26,7 @@ namespace WebLoginViewer.Tests
         public void BuildWebsiteList_Should_Return_List_Of_Websites()
         {
             var websiteList = form.BuildWebsiteList(textLines);
-            Assert.IsInstanceOfType(websiteList, typeof(Dictionary<KeyValuePair<string, string>, List<Credential>>));
+            Assert.IsInstanceOfType(websiteList, typeof(Dictionary<string, List<Credential>>));
             Assert.IsTrue(websiteList.Any());
         }
 
