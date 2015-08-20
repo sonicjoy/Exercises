@@ -16,6 +16,10 @@ namespace WebLoginViewer
         public WebLoginViewerForm()
         {
             InitializeComponent();
+            listView.View = View.Details;
+            listView.Columns.Add("Website", 300);
+            listView.Columns.Add("Credential Count", 180);
+            listView.Columns.Add("Is Online", 90);
         }
 
         private void openFileButton_Click(object sender, EventArgs e)
@@ -30,7 +34,12 @@ namespace WebLoginViewer
                     if (textLines != null)
                     {
                         var websiteList = BuildWebsiteList(textLines);
-
+                        foreach (var website in websiteList)
+                        {
+                            var listViewItem = new ListViewItem(new string[] { website.Key, website.Value.Credentials.Count.ToString(), website.Value.IsOnline.ToString() });
+                            listView.Items.Add(listViewItem);
+                        }
+                        totalLoginLabel.Text = websiteList.Values.Sum(w => w.Credentials.Count).ToString();
                     }
                 }
                 catch (IOException)
