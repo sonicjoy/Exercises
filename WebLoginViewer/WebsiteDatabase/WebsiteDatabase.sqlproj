@@ -68,4 +68,7 @@
   <ItemGroup>
     <RefactorLog Include="WebsiteDatabase.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Question4AnswersScript.sql" />
+  </ItemGroup>
 </Project>
