@@ -1,9 +1,10 @@
 ﻿--Question 4a)
-select distinct p.FirstName, p.LastName, Count(distinct w.WebSiteId)
+select p.FirstName, p.LastName, Count(distinct w.WebSiteId)
 from Person p 
 join UserLoginCredentialValue v on p.PersonId = v.PersonId
 join LoginCredential c on v.LoginCredentialId = c.LoginCredentialId
 join WebSite w on c.WebSiteId = w.WebSiteId
+group by p.PersonId
 
 --Question 4b)
 delete v 
