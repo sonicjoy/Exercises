@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="9923c10d-0687-43d8-8028-805e11fec8e9" ChangeDateTime="08/21/2015 12:35:06">
+    <Property Name="ElementName" Value="[dbo].[WebSiteTable].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[WebSiteTable]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="WebSiteId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e758cb49-a21c-474e-9da8-f2ab530fbbc4" ChangeDateTime="08/21/2015 12:39:45">
+    <Property Name="ElementName" Value="[dbo].[LoginCredential].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoginCredential]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoginCredentialId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="51312af1-e74e-4d26-9f60-0ad488abc2e7" ChangeDateTime="08/21/2015 12:45:39">
+    <Property Name="ElementName" Value="[dbo].[UserLoginCredentialValue].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserLoginCredentialValue]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoginCredentialId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="50dd630f-8f50-44e9-a0bc-d6ac166882de" ChangeDateTime="08/21/2015 12:54:50">
+    <Property Name="ElementName" Value="[dbo].[Person].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Person]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PersonId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="153fe2ea-82e9-47fd-bd63-2dc7f01a2719" ChangeDateTime="08/21/2015 12:57:48">
+    <Property Name="ElementName" Value="[dbo].[FK_LoginCredential_To_WebSite]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[LoginCredential]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_LoginCredential_WebSite]" />
+  </Operation>
+</Operations>
