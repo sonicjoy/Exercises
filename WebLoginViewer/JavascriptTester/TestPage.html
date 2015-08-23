@@ -1,0 +1,1077 @@
+﻿<!-- // Copyright 2015: Thomson Reuters. All Rights Reserved. Proprietary and Confidential information of Thomson Reuters. Disclosure, Use or Reproduction without the written authorization of Thomson Reuters is prohibited. -->
+<!-- // Copyright 2011: Thomson Reuters Global Resources. All Rights Reserved. Proprietary and Confidential information of TRGR. Disclosure, Use or Reproduction without the written authorization of TRGR is prohibited. -->
+<!-- 8/22/2015 10:18:47 AM Web Machine=EG-WLWEB-B630 Port=80 -->
+<!-- OnePass WebService Information:  -->
+
+
+<html>
+<head>
+
+    <title>Westlaw Sign-On</title>
+    <meta http-equiv="Content-Style-Type" content="text/css">
+
+    <script type="text/javascript" src="http://statcont.westlaw.com/shared/js/detectframename_v807.js"></script>
+    <script type="text/javascript" src="http://statcont.westlaw.com/shared/js/SetupWestlawFrameRef_v1101a.js"></script>
+
+    <script type="text/javascript">
+<!--
+    var getCorrectFN = null;
+	if (document.referrer != '') {
+		getCorrectFN = document.referrer;
+		getCorrectFN = getFrameName(getCorrectFN);
+	}
+
+	if (getCorrectFN == "_top" || getCorrectFN == "WestlawFrameWithChat" || getCorrectFN == "%5Ftop") {
+		if (top.location != location) {
+			top.location.href = location.href;
+		}
+	}
+	else if (getCorrectFN != null && getCorrectFN.length > 0) {
+		var topFrame = getWestlawFrameReference(getCorrectFN);
+		if(topFrame.location != location) {
+			topFrame.location.href = location.href;
+		}
+	}
+    if (window.parent == window) {
+        if (top.name != "FromEW") {
+            top.name = '';
+        }
+    }
+//-->
+    </script>
+
+
+    <script type="text/javascript">
+	<!--
+		function GiveFocus()
+		{
+			if (document.mysignon != null) {
+				if (document.mysignon.myname.value == "" ) {
+					document.mysignon.myname.focus();
+				} else if (document.mysignon.mypwd != null && document.mysignon.mypwd.value == "") {
+					document.mysignon.mypwd.focus();
+				} else if (document.mysignon.myclientid != null && document.mysignon.myclientid.type == "text") {
+					document.mysignon.myclientid.focus();
+				} else {
+					document.mysignon.myname.focus();
+				}
+			}
+		}
+	//-->
+    </script>
+
+    <style type="text/css">
+        body {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        .creditcardlink {
+            color: #ffffff;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+        }
+
+        a.creditcardlink {
+            text-decoration: underline;
+        }
+
+            a.creditcardlink:hover {
+                color: #b8cfff;
+            }
+
+        .esi {
+            color: #000000;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+        }
+
+        .esi-bold {
+            color: #000000;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+            font-weight: bold;
+        }
+
+        .esi-bolding {
+            color: #000000;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+            font-weight: bolder;
+        }
+
+        .specialsectiontitle {
+            color: #434025;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+            font-weight: bold;
+        }
+
+        .specialsectiondescription {
+            color: #636148;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+        }
+
+        .forgotpasswordlink {
+            color: #b8cfff;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+            text-decoration: underline;
+        }
+
+        .signonlink {
+            color: #ffffff;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+            text-decoration: underline;
+        }
+
+        .signonerror {
+            color: #ffffff;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.72em;
+        }
+
+            .signonerror a {
+                color: #ffffff;
+            }
+
+        a.signonlink:hover {
+            color: #b8cfff;
+        }
+
+        .signonText {
+            color: #ffffff;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+            text-decoration: none;
+        }
+
+        .signonTextMedium {
+            color: #b7cffd;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.68em;
+            font-weight: bolder;
+            text-decoration: none;
+        }
+
+        .divider {
+            color: #b7cffd;
+            width: 100%;
+            height: 1px;
+        }
+
+        .itemdescription {
+            color: #656565;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+        }
+
+        a.whatsnewlink {
+            color: #2d5198;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        hr.whatsnew {
+            color: #b3b19d;
+            width: 100%;
+            height: 1px;
+        }
+
+        input[type=text]::-ms-clear {
+            display: none;
+        }
+
+        input[type=password]::-ms-reveal {
+            display: none;
+        }
+
+        ul.pagefooter {
+            list-style: none outside none;
+            padding: 0px;
+            margin: 0px;
+        }
+
+            ul.pagefooter li {
+                border-left: 1px solid #656565;
+                display: inline;
+                padding: 0 3px 0 5px;
+                font-size: 0.68em;
+                font-family: Arial, Verdana, Helvetica, sans-serif;
+                color: #656565;
+            }
+
+                ul.pagefooter li.first {
+                    border: none;
+                    padding-left: 0;
+                }
+
+                ul.pagefooter li a {
+                    color: #145da4;
+                    text-decoration: none;
+                }
+
+                    ul.pagefooter li a:hover {
+                        text-decoration: underline;
+                    }
+
+        .footer {
+            color: #656565;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+        }
+
+        .footercanada {
+            color: blue;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+        }
+
+        .footerlink {
+            color: #656565;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            text-decoration: underline;
+        }
+
+        .footerlinkcanada {
+            color: blue;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            text-decoration: underline;
+        }
+
+        .footerendtext {
+            color: #656565;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+        }
+
+        .footerendtextbold {
+            color: #656565;
+            font-size: 0.68em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+
+        .rightsideheadertext {
+            color: #2d5198;
+            font-size: 0.98em;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+
+            .rightsideheadertext .SubHeading {
+                font-weight: normal;
+                font-size: 0.92em;
+            }
+
+        form {
+            margin: 0;
+            padding: 0;
+        }
+
+        label.hidden {
+            display: none;
+        }
+
+        .MarketingSection {
+            margin: 0px;
+            padding: 0px;
+        }
+
+            .MarketingSection .Item {
+                color: #656565;
+                margin: 4px 0px 4px 10px;
+                font-size: .68em;
+                font-family: Arial, Verdana, Helvetica, sans-serif;
+            }
+
+                .MarketingSection .Item a {
+                    color: #2d5198;
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+
+            .MarketingSection .WhatsNewItem {
+                color: #656565;
+                margin: 4px 0px 4px 0px;
+                font-size: .68em;
+                font-family: Arial, Verdana, Helvetica, sans-serif;
+            }
+
+                .MarketingSection .WhatsNewItem a {
+                    color: #2d5198;
+                    font-weight: bold;
+                    font-size: 1.22em;
+                    text-decoration: underline;
+                }
+
+            .MarketingSection h2 {
+                color: #2d5198;
+                font-size: 0.98em;
+                font-family: Arial, Verdana, Helvetica, Sans-Serif;
+                font-weight: bold;
+                margin: 0px;
+                padding: 0px;
+            }
+
+        .ErrorMessageBottomLeft {
+            background: #FF8000 url(http://statcont.westlaw.com/images/signon_Error_BottomLeft.jpg) bottom left no-repeat;
+            display: block;
+            margin: 5px 5px 5px 5px;
+        }
+
+        .ErrorMessageBottomRight {
+            background: url(http://statcont.westlaw.com/images/signon_Error_BottomRight.jpg) bottom right no-repeat;
+            padding: 0px;
+        }
+
+        .ErrorMessageTopLeft {
+            background: url(http://statcont.westlaw.com/images/signon_Error_TopLeft.jpg) top left no-repeat;
+            padding: 0px;
+        }
+
+        .ErrorMessageTopRight {
+            color: #ffffff;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+            font-size: 0.72em;
+            font-weight: bold;
+            background: url(http://statcont.westlaw.com/images/signon_Error_TopRight.jpg) top right no-repeat;
+            padding: 5px 10px 8px 35px;
+        }
+
+            .ErrorMessageTopRight a {
+                color: #ffffff;
+            }
+
+                .ErrorMessageTopRight a.visited {
+                    color: #ffffff;
+                }
+
+        .Accessible {
+            position: absolute !important;
+            left: -10000px !important;
+            top: auto !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
+        }
+
+        .CarswellLegalMessage {
+            background-color: #E6E6E6;
+            border-color: black;
+            font-size: 0.58em;
+            padding: 5px;
+            font-family: Arial, Verdana, Helvetica, sans-serif;
+        }
+
+        .Credentials {
+            background: #5d81c7 url(http://statcont.westlaw.com/images/bg-grad-dkblue2.jpg) left top repeat-x;
+            color: #FFFFFF;
+            font-family: Arial,Verdana,Helvetica,sans-serif;
+            padding: 0 0px;
+            width: 483px;
+        }
+
+            .Credentials ul {
+                list-style: none outside none;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .Credentials p {
+                font-size: .72em;
+            }
+
+            .Credentials h3 {
+                font-size: .75em;
+                font-weight: bold;
+                margin: 0px 0px 3px 0px;
+                padding: 0;
+            }
+
+            .Credentials a {
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+                .Credentials a:visited {
+                    color: #ffffff;
+                }
+
+                .Credentials a:hover {
+                    text-decoration: underline;
+                }
+
+            .Credentials .CredentialLabel {
+                display: block;
+                font-size: .75em;
+                font-weight: bold;
+                margin: 0 0 1px;
+            }
+
+            .Credentials #OnePassHeader {
+                background: url(http://statcont.westlaw.com/images/header-sign-on-onepass.jpg) no-repeat;
+                height: 37px;
+                width: 192px;
+                margin: 0;
+                padding: 0;
+                text-indent: -9000px;
+                float: left;
+            }
+
+            .Credentials #WestlawPasswordHeader {
+                background: url(http://statcont.westlaw.com/images/header-sign-on-westlaw.jpg) no-repeat;
+                height: 37px;
+                width: 273px;
+                margin: 0;
+                padding: 0;
+                text-indent: -9000px;
+                float: left;
+            }
+
+            .Credentials #OnePassHeaderLink {
+                background: transparent url(http://statcont.westlaw.com/images/header-sign-onLink.jpg) right top no-repeat;
+                height: 37px;
+                line-height: 40px;
+                padding-right: 10px;
+                display: block;
+                text-align: right;
+                margin: 0;
+                float: right;
+                font-size: 11px;
+            }
+
+            .Credentials .TextBox {
+                width: 200px;
+            }
+
+            .Credentials .QuestionAnswer {
+                white-space: nowrap;
+            }
+
+            .Credentials .AuthenticationError {
+                background: #FF8000;
+                border: solid 2px #ffffff;
+                font-size: .8em;
+                padding: 3px;
+                width: 200px;
+            }
+
+            .Credentials .AuthenticationHeaderError {
+                background: #FF8000;
+                border: solid 2px #ffffff;
+                font-size: .8em;
+                padding: 3px;
+                margin: 5px 10px 0px 10px;
+            }
+
+                .Credentials .AuthenticationHeaderError a {
+                    text-decoration: underline;
+                }
+
+        .OnePassCredentials {
+            float: left;
+            padding: 15px 5px 15px 10px;
+            width: 235px;
+        }
+
+        .LinksContainer {
+            width: 223px;
+            float: left;
+            padding: 15px 0px 5px 0px;
+        }
+
+        .OnePassCredentials li {
+            list-style-type: none;
+            padding-bottom: 5px;
+            padding-right: 0px;
+        }
+
+            .OnePassCredentials li.Small {
+                font-size: .72em;
+                line-height: 1.0em;
+                padding: 0px;
+            }
+
+            .OnePassCredentials li.Logon {
+                padding: 10px 0px 0px;
+            }
+
+        .LinksContainer ul {
+            padding-bottom: 12px;
+        }
+
+            .LinksContainer ul.Phone {
+                padding-bottom: 5px;
+            }
+
+        .LinksContainer li {
+            font-size: .72em;
+            line-height: 1.5em;
+        }
+
+        .LinksContainer p {
+            margin: 7px 0px 7px 0px;
+            padding: 0;
+        }
+
+            .LinksContainer p.NeedHelp {
+                margin: 12px 0px 12px 0px;
+                padding: 0;
+            }
+
+        .Clear {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body bgcolor="#FFFFFF" marginwidth="0" marginheight="0" onLoad="return GiveFocus()">
+
+    <script type="text/javascript">
+<!--
+    var submitsent = false;
+
+    function Submit()
+    {
+        var client = document.signon.clientid.value;
+
+        // Set the target for the form
+		if (window.name.length == 0) {
+			document.signon.target = "_top";
+		}
+		else {
+			document.signon.target = window.name;
+		}
+
+    	if (submitsent == false) {
+    		document.signon.js.value = "on";
+            document.signon.sw.value = screen.width;
+            document.signon.sh.value = screen.height;
+            if (document.signon.pwd.value == "" ) {
+                alert ("You must enter a Westlaw password.");
+                return false;
+            } else if (client.indexOf(" ") == 0) {
+                var bFound = false;
+                for (var num = 0; num <= client.length - 1; num++) {
+                    if (client.charAt(num) != " ") {
+                        bFound = true;
+                        break;
+                    }
+                }
+                if (bFound == false) {
+                    alert("Your client identifier must contain a character other than a space.");
+                    return false;
+                }
+            }
+            submitsent = true;
+            return submitsent;
+    	} else {
+            alert("Please wait while we process your sign on request.");
+            return false;
+        }
+    }
+
+    function MySubmit()
+    {
+        var client = document.mysignon.clientid.value;
+        if (submitsent == false) {
+    		document.mysignon.js.value = "on";
+            document.mysignon.sw.value = screen.width;
+            document.mysignon.sh.value = screen.height;
+            if (document.mysignon.myname.value == "" && document.mysignon.mypwd.value == "") {
+                alert("You must enter a username and password.");
+                return false;
+            } else if (document.mysignon.myname.value == "") {
+                alert("You must enter a username.");
+                return false;
+            } else if (document.mysignon.mypwd.value == "") {
+                alert("You must enter a password.");
+                return false;
+    		} else if (client.indexOf(" ") == 0) {
+    			var bFound = false;
+    			for (var num = 0; num <= client.length - 1; num++) {
+                    if (client.charAt(num) != " ") {
+                        bFound = true;
+                        break;
+                    }
+                }
+                if (bFound == false) {
+                    alert("Your client identifier must contain a character other than a space.");
+                    return false;
+                }
+    		}
+            submitsent = true;
+            return submitsent;
+        } else {
+            alert("Please wait while we process your sign on request.");
+            return false;
+        }
+    }
+
+    // here so it will capture clicks as soon as it reads the script
+
+    function IEDoKey()
+    {
+    //	alert(window.event.keyCode);
+    	if (window.event && window.event.keyCode == 13) {
+			if (window.event.srcElement.id == "pwd" || window.event.srcElement.id == "clientid") {
+    		    // override return so it submits the form
+    		    var signonform = document.forms.signon;
+    		    if (signonform != null) {
+    			    if (Submit()) { // check form first
+    				    signonform.submit();  // then submit
+    			    }
+    		    }
+    		    window.event.returnValue=false;
+            } else if (window.event.srcElement.id == "myname" || window.event.srcElement.id == "mypwd" || window.event.srcElement.id == "myclientid") {
+    		    // override return so it submits the form
+    		    var mysignonform = document.forms.mysignon;
+    		    if (mysignonform != null) {
+    			    if (MySubmit()) { // check form first
+    				    mysignonform.submit();  // then submit
+    			    }
+    		    }
+    		    window.event.returnValue=false;
+            }
+    	}
+    }
+    document.onkeypress=IEDoKey;
+
+//-->
+    </script>
+
+
+
+    <!-- Signon 2006 -->
+    <!-- gradient top header image -->
+    <div id="Div1" style="BACKGROUND-IMAGE: url(http://statcont.westlaw.com/images/signon_topgradient.gif); background-repeat: repeat-x;">
+        <table cellpadding="0" cellspacing="0" border="0" ID="Table3" align="center">
+            <tr>
+                <td colspan="2">
+                    <table id="Table25" style="WIDTH: 100%" cellSpacing="0" cellPadding="0" border="0">
+                        <tr><td height="16" colspan="2"></td></tr>
+                        <tr>
+                            <td align="left">
+                                <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=7&redirectto=http%3A%2F%2Fwest%2Ethomson%2Ecom%2Fstore%2Fproduct%2Easp%3Fproduct%5Fid%3Dwestlaw%26catalog%5Fname%3Dwgstore" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=400,');help_window.focus();"><img src="http://statcont.westlaw.com/images/WL_Classic_logo.png" alt="Westlaw" title="Westlaw" border="0" align="center"></a>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+
+                            <td vAlign="baseline" colspan="2"><IMG src="http://statcont.westlaw.com/images/shadow-grad-top.gif" alt="" width="758" height="9" align="absbottom"></td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+
+                    <form name="mysignon" action="https://web2.westlaw.com/signon/default.wl" method="post" target="_top" onsubmit="return MySubmit()">
+
+                        <div class="Credentials">
+
+
+                            <h2 id="OnePassHeader">Sign On with OnePass</h2>
+
+                            <a id="OnePassHeaderLink" href="http://web2.westlaw.com/signon/default.wl?RS=WLW15.07&VR=2.0&SV=Split&FN=_top&bhcp=1&newdoor=true&so=wlp&sotype=wlp">Switch to Westlaw Password Sign On</a>
+
+                            <div class="Clear"></div>
+                            <div class="OnePassCredentials">
+                                <ul>
+                                    <li>
+                                        <label for="myname" class="CredentialLabel">OnePass Username:</label>
+                                        <input id="myname" class="textbox" type="text" name="myname" autocomplete="off" value="">
+                                    </li>
+                                    <li>
+                                        <label for="mypwd" class="CredentialLabel">OnePass Password:</label>
+                                        <input id="mypwd" class="textbox" type="password" name="mypwd" autocomplete="off" value="">
+                                    </li>
+
+                                    <li>
+                                        <label for="myclientid" class="CredentialLabel">Client ID:</label>
+                                        <input id="myclientid" class="textbox" type="text" name="clientid" value="" maxlength="35">
+                                    </li>
+
+                                </ul>
+
+
+
+                                <ul>
+                                    <li class="Small">
+                                        <input id="mysavename" type="checkbox" value="on" name="mysavename"><label for="mysavename">Remember Username</label>
+                                    </li>
+                                    <li class="Small">
+                                        <input id="mysave" type="checkbox" value="on" name="mysave"><label for="mysave">Remember Username &amp; Password</label>
+                                    </li>
+
+                                    <li class="Small">
+                                        <input id="trailmup" type="checkbox" value="on" name="trailmup"><label for="trailmup">Return to last research trail</label>
+                                    </li>
+
+                                    <li class="Logon">
+                                        <input id="Logon" title="Sign On" type="image" alt="Sign On westlaw.com"
+                                               src="http://statcont.westlaw.com/images/button-signon.gif" align="absMiddle" border="0" name="Logon">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="LinksContainer">
+                                <h3>Help</h3>
+                                <ul>
+                                    <li class="Small">
+                                        <a href="http://onepass.westlaw.com/onepass/forgotonepass.aspx?tf=90&tc=27&productid=WLW&returnto=http%3A%2F%2Fweb2%2Ewestlaw%2Ecom%2Fsignon%2Fdefault%2Ewl%3Fbhcp%3D1%26fn%3D%255Ftop%26rs%3DWLW15%252E07%26vr%3D2%252E0&ru=1&viewproductid=%21WLW%5FW&wlnkeys=true" target="_top">Forgot Username or Password?</a>
+                                    </li>
+
+                                    <li class="Small">
+                                        <a href="http://onepass.westlaw.com/onepass/register.aspx?tf=90&tc=27&productid=WLW&returnto=http%3A%2F%2Fweb2%2Ewestlaw%2Ecom%2Fsignon%2Fdefault%2Ewl%3Fbhcp%3D1%26fn%3D%255Ftop%26rs%3DWLW15%252E07%26vr%3D2%252E0&ru=1&viewproductid=%21WLW%5FW&wlnkeys=true" target="_top">Register my Westlaw Password</a>
+                                    </li>
+                                    <li class="Small">
+                                        <a href="http://onepass.westlaw.com/onepass/update.aspx?tf=90&tc=27&productid=WLW&returnto=http%3A%2F%2Fweb2%2Ewestlaw%2Ecom%2Fsignon%2Fdefault%2Ewl%3Fbhcp%3D1%26fn%3D%255Ftop%26rs%3DWLW15%252E07%26vr%3D2%252E0&ru=1&viewproductid=%21WLW%5FW&wlnkeys=true" target="_top">Edit or Update OnePass Account</a>
+                                    </li>
+                                    <li class="Small">
+                                        <a href="http://west.thomson.com/support/customer-service/onepass/default.aspx" target="help_window">What is OnePass?</a>
+                                    </li>
+
+                                </ul>
+
+                                <h3>Technical Support</h3>
+                                <ul class="Phone">
+                                    <li class="Small">
+                                        1-800-WESTLAW (1-800-937-8529)
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="Clear"></div>
+                            <input type="hidden" name="bhcp" value="1" />
+                            <input type="hidden" name="clickit" value="y" />
+                            <input type="hidden" name="fn" value="_top" />
+                            <input type="hidden" name="js" value="off" />
+                            <input type="hidden" name="newdoor" value="true" />
+                            <input type="hidden" name="rs" value="WLW15.07" />
+                            <input type="hidden" name="sh" value="0" />
+                            <input type="hidden" name="so" value="mup" />
+                            <input type="hidden" name="ssl" value="y" />
+                            <input type="hidden" name="sw" value="0" />
+                            <input type="hidden" name="vr" value="2.0" />
+
+
+                            <script language="javascript">
+		<!--
+			if (window.name.length > 0) {
+				var frameTarget;
+				frameTarget = "_top";
+				if (frameTarget == "_top") {
+					document.write("<input type='hidden' name='FN' value='" + window.name + "'>");
+					}
+				}
+		//-->
+                            </script>
+
+                        </div>
+
+                    </form>
+
+                    <table height="1px" width="100%" border="0" cellpadding="0" cellspacing="0" ID="Table29">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <table id="Table30" cellSpacing="0" cellPadding="0" border="0">
+                        <tr><td vAlign="top"><iframe title="Banner Frame" src="http://web2.westlaw.com/signon/banner.aspx?MktKey=WL" frameborder="0" scrolling="no" width="483" height="240"></iframe></td></tr>
+                        <tr><td vAlign="top"><IMG height="9" src="http://statcont.westlaw.com/images/shadow-grad-bottom.gif" alt="" width="483" align="top"></td></tr>
+                    </table>
+
+                    <table cellSpacing="0" cellPadding="0" border="0">
+                        <tr>
+                            <td width="14"></td>
+                            <td valign="top" align="left">
+                                <a class="footerlink" href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=16&redirectto=http%3A%2F%2Flegalsolutions%2Ethomsonreuters%2Ecom%2Flaw%2Dproducts%3Ftrkcode%3D666586V43850FTR%26trktype%3Dexternal" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=400,');help_window.focus();">Shop for Legal Products</a>
+                                <span class="footer"> | </span>
+                                <a class="footerlink" href="https://web2.westlaw.com/signon/default.wl?RS=WLW15.07&amp;VR=2.0&amp;SV=Split&amp;FN=_top&amp;bhcp=1&amp;newdoor=true&amp;sslsession=f">Secure&nbsp;Connection</a>
+                                <span class="footer"> | </span>
+                                <a class="footerlink" href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=17&redirectto=http%3A%2F%2Ftext%2Ewestlaw%2Ecom" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=400,');help_window.focus();">text.westlaw.com</a>
+                                <span class="footer"> | </span>
+                                <a class="footerlink" href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=15&redirectto=http%3A%2F%2Flawschool%2Ewestlaw%2Ecom%2F" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=400,');help_window.focus();">lawschool.westlaw.com</a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+
+                <td valign="top">
+                    <table cellspacing="0" cellpadding="14" border="0" style="BACKGROUND:url(http://statcont.westlaw.com/images/bg-grad-buckram.jpg) #ffffff repeat-x; WIDTH:247px; HEIGHT:100%" ID="Table31">
+                        <tr>
+                            <td width="100%" colspan="2" valign="top">
+
+
+                                <table cellpadding="0" cellspacing="0" border="0" ID="Table32" style="WIDTH:247px">
+
+                                    <style type="text/css">
+                                        .cobaltpromobackground {
+                                            background: #FFFFFF;
+                                            vertical-align: top;
+                                            font-family: Arial,Verdana,Helvetica,sans-serif;
+                                            width: 247px;
+                                            height: 145px;
+                                            background: url(http://statcont.westlaw.com/images/WestlawNext_BG.jpg);
+                                        }
+
+                                            .cobaltpromobackground img {
+                                                border: 0;
+                                            }
+
+                                            .cobaltpromobackground span {
+                                                font-size: 0px;
+                                            }
+
+                                        .cobaltPromoBottomSection {
+                                            height: 30px;
+                                            background: url(http://statcont.westlaw.com/images/WestlawNextPromoBottom.jpg);
+                                            border: 1px solid #FFFFFF;
+                                        }
+
+                                            .cobaltPromoBottomSection span {
+                                                float: right;
+                                            }
+
+                                        .cobaltPromoSignOn {
+                                            margin-left: 12px;
+                                            padding-top: 41px;
+                                        }
+
+                                            .cobaltPromoSignOn img {
+                                                width: 68px;
+                                                height: 16px;
+                                            }
+
+                                        .cobaltPromoLearnMore {
+                                            margin-left: 12px;
+                                            padding-top: 54px;
+                                        }
+
+                                            .cobaltPromoLearnMore img {
+                                                width: 98px;
+                                                height: 16px;
+                                            }
+                                    </style>
+                                    <tr>
+                                        <td>
+                                            <div class="cobaltpromobackground">
+                                                <div class="cobaltPromoLearnMore">
+                                                    <a href="http://www.west.thomson.com/westlawnext/default.aspx"><img src="http://statcont.westlaw.com/images/WestlawNext_tourLink.jpg" alt="Learn More about WestlawNext" /></a>
+                                                </div>
+                                                <div class="cobaltPromoSignOn" style="">
+                                                    <a href="http://1.next.westlaw.com"><img src="http://statcont.westlaw.com/images/WestlawNext_signOnLink.jpg" alt="Sign On to WestlawNext" /></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td height="24">
+                                            <hr class="whatsnew">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <div class="MarketingSection">
+
+                                                <div class="WhatsNewItem">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=16&redirectto=http%3A%2F%2Fwest%2Ethomson%2Ecom%2Fwestlaw%3Ftf%3D90%26tc%3D16" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();"></a>
+
+                                                    <br />Check out the newest enhancements to Westlaw.
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="24">
+                                            <hr class="whatsnew">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left">
+                                            <img src="http://statcont.westlaw.com/images/signon_resources.gif" alt="Resources" align="top">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <div class="MarketingSection">
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=12&redirectto=http%3A%2F%2Fdirectory%2Ewestlaw%2Ecom%2F%3Ftf%3D90%26tc%3D12" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">Database Directory</a>
+
+                                                    <br />Direct access to Westlaw databases.
+                                                </div>
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=61&redirectto=http%3A%2F%2Fwest%2Ethomson%2Ecom%2Fwestlaw%2Fguides" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">Content Highlights &amp; User Guides</a>
+
+                                                    <br />Product information and reference materials.
+                                                </div>
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=62&redirectto=http%3A%2F%2Fwest%2Ethomson%2Ecom%2Fwestlaw%2Ftraining" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">Training Options</a>
+
+                                                    <br />Learn how to effectively use Westlaw.
+                                                </div>
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=63&redirectto=http%3A%2F%2Fwest%2Ethomson%2Ecom%2Fwestlaw%2Fsignon%2Fmyacctinfo" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">My Account Information</a>
+
+                                                    <br />Manage and review your account details.
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="24">
+                                            <hr class="whatsnew">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="left">
+                                            <img src="http://statcont.westlaw.com/images/signon_featuredtools.gif" alt="Featured Tools" align="top">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <div class="MarketingSection">
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=13&redirectto=http%3A%2F%2Fwww%2Ewestlegaledcenter%2Ecom%2F%3Ftf%3D90%26tc%3D13" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">Online CLE Programs</a>
+
+                                                </div>
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=71&redirectto=http%3A%2F%2Fwest%2Ethomson%2Ecom%2Fwestcheck" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">WestCheck</a>
+
+                                                </div>
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=8&redirectto=http%3A%2F%2Fcourtexpress%2Ewestlaw%2Ecom%2F%3Ftf%3D90%26tc%3D8" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">Westlaw CourtExpress</a>
+
+                                                </div>
+
+                                                <div class="Item">
+                                                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=10&redirectto=https%3A%2F%2Ffindprint%2Ewestlaw%2Ecom%2FDesktop%2Fdefault%2Easpx%3Ftf%3D90%26tc%3D10" target="help_window" OnClick="help_window=window.open('','help_window','toolbar=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=no,width=750,height=550,');help_window.focus();">WestFind&amp;Print</a>
+
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+            </tr>
+            <tr>
+                <td valign="top" colspan="2"></td>
+            </tr>
+        </table>
+
+        <table cellpadding="0" cellspacing="0" border="0" ID="Table34" style="WIDTH: 758px" align="center">
+            <tr>
+                <td height="30"></td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="footerlink" href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=16&redirectto=http%3A%2F%2Fwest%2Ethomson%2Ecom%2Faccessibility%2F" target="help_window">Accessibility</a>
+                    <span class="footer"> | </span>
+                    <a class="footerlink" href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=17&redirectto=http%3A%2F%2Fstore%2Ewestlaw%2Ecom%2Flegal%2Dnotices%2Fwestlaw%2Fprivacy%2Fdefault%2Easpx" target="help_window">Privacy Statement</a>
+                    <span class="footer"> | </span>
+                    <a class="footerlink" href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=40&redirectto=http%3A%2F%2Fhelp%2Ewestlaw%2Ecom%2Fdefault%2Easp%3Frefid%3Dsignon" target="help_window">Help</a>
+                    <span class="footer"> | &copy; 2015 </span>
+                    <a class="footerlink" href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=45&redirectto=http%3A%2F%2Fthomsonreuters%2Ecom" target="help_window">Thomson Reuters.</a>
+                </td>
+                <td align="right">
+                    <a href="http://web2.westlaw.com/events/tracking.aspx?tf=90&tc=19&redirectto=http%3A%2F%2Fwww%2Ethomsonreuters%2Ecom%2F" target="help_window"><img src="http://statcont.westlaw.com/images/tr_logo_40.gif" alt="Thomson Reuters" border="0"></a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <!-- Signon 2006 -->
+
+
+    <!--Question 5 scripts-->
+    <script type="text/javascript">
+        var validator = {
+            //here is where user setup the validations
+            validationSetup: [
+                { inputId: 'myname', inputName: 'username', validRegex: /^CorrectUsername$/i },
+                { inputId: 'mypwd', inputName: 'password', validRegex: /^CorrectPassword$/i },
+                { inputId: 'myclientid', inputName: 'client id', validRegex: /^\d{4}-\d{5,6}$/ }
+            ],
+            interceptor_setup: function () {
+                // override submit handling
+                HTMLFormElement.prototype.real_submit = HTMLFormElement.prototype.submit
+                HTMLFormElement.prototype.submit = validator.interceptor;
+                window.addEventListener('submit', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    validator.interceptor(e);
+                }, true);
+            },
+            interceptor: function (e) {
+                var frm = e ? e.target : this;
+                //don't bother with form that does not submit
+                if (!frm.onsubmit) {
+                    return false;
+                }
+
+                if (!validator.isValid(frm)) {
+                    return false;
+                } else {
+                    HTMLFormElement.prototype.real_submit.apply(frm);
+                }
+            },
+
+            isValid: function (form) {
+                for (var i = 0; i < validator.validationSetup.length; i++) {
+                    var inputId = validator.validationSetup[i].inputId;
+                    var inputName = validator.validationSetup[i].inputName;
+                    var validRegex = validator.validationSetup[i].validRegex;
+                    var input = form[inputId];
+                    if (input == undefined) {
+                        alert('Input with id ' + inputId + ' is not found.');
+                        return false;
+                    }
+                    if (!validRegex.test(input.value)) {
+                        alert('The ' + inputName + ' is invalid.');
+                        return false;
+                    }
+                }
+                return true;
+            }
+        };
+
+        window.onload = validator.interceptor_setup();
+    </script>
+    <!--End of Question 5 scripts-->
+</body>
+</html>
