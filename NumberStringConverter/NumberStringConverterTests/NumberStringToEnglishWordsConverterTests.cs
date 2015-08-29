@@ -105,7 +105,17 @@ namespace NumberStringConverter.Tests
             Assert.AreEqual("one billion and twelve", result3);
 
             var result4 = converter.ConvertNumberToWords(1000100012);
-            Assert.AreEqual("one billion, ten million and twelve", result4);
+            Assert.AreEqual("one billion, one hundred thousand and twelve", result4);
+
+            var result5 = converter.ConvertNumberToWords(2030103012);
+            Assert.AreEqual("two billion, thirty million, one hundred and three thousand and twelve", result5);
+        }
+
+        [TestMethod]
+        public void Negative_Number_Test()
+        {
+            var result = converter.ConvertNumberToWords(-56945781);
+            Assert.AreEqual("negative fifty six million, nine hundred and forty five thousand, seven hundred and eighty one", result);
         }
     }
 }

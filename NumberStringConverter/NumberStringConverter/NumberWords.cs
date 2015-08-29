@@ -10,12 +10,15 @@ namespace NumberStringConverter
         private int _number = 0;
         private StringBuilder _words = new StringBuilder();
         private static readonly string[] scaleNames = { string.Empty, " thousand", " million", " billion", " trillion" };
+        private static readonly string[] tensNames = { string.Empty, "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+        private static readonly string[] numNames = {string.Empty, "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
+                                                        "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
 
         public NumberWords(int number)
         {
             if (number < 0)
             {
-                _words.Append("negative");
+                _words.Append("negative ");
                 _number = Math.Abs(number);
             }
             else
@@ -34,6 +37,16 @@ namespace NumberStringConverter
                     var threeDigitWords = threeDigitSets[i].ConvertToString();
                     if (!string.IsNullOrEmpty(threeDigitWords))
                     {
+                        if (i < threeDigitSets.Count - 1)
+                        {
+                            if (i > 0)
+                                _words.Append(", ");
+                            else if (i == 0)
+                            {
+                                if (threeDigitWords.Contains("hundred")) _words.Append(", ");
+                                else _words.Append(" and ");
+                            }
+                        }
                         _words.Append(threeDigitWords);//append the 3 digit words
                         _words.Append(scaleNames[i]); //append the scale name
                     }
@@ -100,11 +113,11 @@ namespace NumberStringConverter
 
             internal string ConvertToString()
             {
-                BuildWords();
+                BuildThreeDigitWords();
                 return _words.ToString();
             }
 
-            private void BuildWords()
+            private void BuildThreeDigitWords()
             {
                 if (_hundred != "0")
                 {
@@ -119,37 +132,41 @@ namespace NumberStringConverter
             private void AppendHundredsPart()
             {
                 var value = int.Parse(_hundred);
-                _words.Append(GetSpecialNumberName(value));
-                _words.Append(" ");
-                _words.Append("hundred");
+                if (value > 0)
+                {
+                    _words.Append(GetSpecialNumberName(value));
+                    _words.Append(" ");
+                    _words.Append("hundred");
+                }
             }
 
             private void AppendTensPart()
             {
-                var tensNames = new string[] { string.Empty, "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
                 var value = int.Parse(_ten + _unit);
-                if (value < 20)
-                    _words.Append(GetSpecialNumberName(value));
-                else
+                if (value > 0)
                 {
-                    var tensValue = int.Parse(_ten);
-                    _words.Append(tensNames[tensValue]);
-                    if (_unit != "0")
-                        _words.Append(" ");
-                    AppendUnitsPart();
+                    if (value < 20)
+                        _words.Append(GetSpecialNumberName(value));
+                    else
+                    {
+                        var tensValue = int.Parse(_ten);
+                        _words.Append(tensNames[tensValue]);
+                        if (_unit != "0")
+                            _words.Append(" ");
+                        AppendUnitsPart();
+                    }
                 }
             }
 
             private void AppendUnitsPart()
             {
                 var value = int.Parse(_unit);
-                _words.Append(GetSpecialNumberName(value));
+                if (value > 0)
+                    _words.Append(GetSpecialNumberName(value));
             }
 
             private string GetSpecialNumberName(int value)
             {
-                var numNames = new string[]{string.Empty, "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
-                                                        "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
                 var numName = string.Empty;
                 if (value > 0 && value < 20) numName = numNames[value];
                 return numName;
