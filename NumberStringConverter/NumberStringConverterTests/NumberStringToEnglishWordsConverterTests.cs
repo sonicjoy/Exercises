@@ -36,5 +36,16 @@ namespace NumberStringConverter.Tests
                 Assert.AreEqual(expectedResult[i-1], result);
             }
         }
+
+        [TestMethod]
+        public void If_Value_Is_Two_Digit_Less_Than_20()
+        {
+            var expectedResult = new String[] { "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+            for (var i = 10; i < 20; i++)
+            {
+                var result = converter.ConvertNumberToWords(i);
+                Assert.AreEqual(expectedResult[i - 1], result);
+            }
+        }
     }
 }
