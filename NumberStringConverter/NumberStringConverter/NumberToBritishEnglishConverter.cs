@@ -4,7 +4,7 @@
     {
         public string ConvertNumberToWords(int number)
         {
-            var words = new NumberWords(number);
+            var words = new BritishEnglishNumber(number);
             return words.ConvertToString();
         }
     }

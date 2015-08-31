@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NumberStringConverter
 {
-    internal class NumberWords
+    internal class BritishEnglishNumber : INumberWords
     {
         const int SCALE_STEP = 3;
         private int _number = 0;
@@ -13,7 +13,7 @@ namespace NumberStringConverter
         private static readonly string[] numNames = {string.Empty, "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
                                                         "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
 
-        public NumberWords(int number)
+        public BritishEnglishNumber(int number)
         {
             _number = number;
         }
@@ -56,60 +56,48 @@ namespace NumberStringConverter
 
         private SortedList<int, ThreeDigitSet> BuildThreeDigitSets()
         {
-            var threeDigitSets = new SortedList<int, ThreeDigitSet>();
             var numberString = _number.ToString();
             var length = numberString.Length;
-            var numberOfThree = length / SCALE_STEP;
             var remainder = length % SCALE_STEP;
+            if (remainder > 0)
+            {
+                var complementZeros = new string('0', SCALE_STEP - remainder);
+                numberString = complementZeros + numberString;
+                length = numberString.Length; //have to recalculate the length after adding dummy zeros
+            }
 
-            for (var i = 0; i < numberOfThree; i++)
+            var numberOfSets = length / SCALE_STEP;
+            var threeDigitSets = new SortedList<int, ThreeDigitSet>();
+            for (var i = 0; i < numberOfSets; i++)
             {
-                var unit = numberString[length - 1 - i * SCALE_STEP];
-                var ten = numberString[length - 2 - i * SCALE_STEP];
-                var hundred = numberString[length - 3 - i * SCALE_STEP];
-                var threeDigitSet = new ThreeDigitSet(hundred, ten, unit);
+                var defaultSet = new char[SCALE_STEP];
+                for (var j = 0; j < SCALE_STEP; j++)
+                {
+                    var index = length -1 - i * SCALE_STEP - j;
+                    defaultSet[j] = numberString[index];
+                }
+                var threeDigitSet = new ThreeDigitSet(defaultSet);
                 threeDigitSets[i] = threeDigitSet;
-            }
-            if (remainder == 2)
-            {
-                var ten = numberString[0];
-                var unit = numberString[1];
-                var threeDigitSet = new ThreeDigitSet(ten, unit);
-                threeDigitSets[numberOfThree] = threeDigitSet;
-            }
-            else if (remainder == 1)
-            {
-                var unit = numberString[0];
-                var threeDigitSet = new ThreeDigitSet(unit);
-                threeDigitSets[numberOfThree] = threeDigitSet;
             }
 
             return threeDigitSets;
         }
 
-        private class ThreeDigitSet
+        private class ThreeDigitSet : IDigitSet
         {
             private string _unit = "0";
             private string _ten = "0";
             private string _hundred = "0";
             private StringBuilder _words = new StringBuilder();
 
-            public ThreeDigitSet(char hundred, char ten, char unit) : this(ten, unit)
+            public ThreeDigitSet(char[] defaultSet)
             {
-                _hundred = hundred.ToString();
+                _unit = defaultSet[0].ToString();
+                _ten = defaultSet[1].ToString();
+                _hundred = defaultSet[2].ToString();
             }
 
-            public ThreeDigitSet(char ten, char unit) : this(unit)
-            {
-                _ten = ten.ToString();
-            }
-
-            public ThreeDigitSet(char unit)
-            {
-                _unit = unit.ToString();
-            }
-
-            internal string ConvertToString()
+            public string ConvertToString()
             {
                 BuildThreeDigitWords();
                 return _words.ToString();
@@ -171,4 +159,5 @@ namespace NumberStringConverter
             }
         }
     }
+
 }
