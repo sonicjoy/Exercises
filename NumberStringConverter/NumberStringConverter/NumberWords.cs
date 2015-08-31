@@ -8,7 +8,6 @@ namespace NumberStringConverter
     {
         const int SCALE_STEP = 3;
         private int _number = 0;
-        private StringBuilder _words = new StringBuilder();
         private static readonly string[] scaleNames = { string.Empty, " thousand", " million", " billion", " trillion" };
         private static readonly string[] tensNames = { string.Empty, "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
         private static readonly string[] numNames = {string.Empty, "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
@@ -16,21 +15,20 @@ namespace NumberStringConverter
 
         public NumberWords(int number)
         {
-            if (number < 0)
-            {
-                _words.Append("negative ");
-                _number = Math.Abs(number);
-            }
-            else
-                _number = number;
-
+            _number = number;
         }
 
         public string ConvertToString()
         {
-            if (_number == 0) _words.Append("zero");
+            var words = new StringBuilder();
+            if (_number == 0) words.Append("zero");
             else
             {
+                if (_number < 0)
+                {
+                    words.Append("negative ");
+                    _number = Math.Abs(_number);
+                }
                 var threeDigitSets = BuildThreeDigitSets();
                 for (var i = threeDigitSets.Count - 1; i >= 0; i--)
                 {
@@ -40,20 +38,20 @@ namespace NumberStringConverter
                         if (i < threeDigitSets.Count - 1)
                         {
                             if (i > 0)
-                                _words.Append(", ");
+                                words.Append(", ");
                             else if (i == 0)
                             {
-                                if (threeDigitWords.Contains("hundred")) _words.Append(", ");
-                                else _words.Append(" and ");
+                                if (threeDigitWords.Contains("hundred")) words.Append(", ");
+                                else words.Append(" and ");
                             }
                         }
-                        _words.Append(threeDigitWords);//append the 3 digit words
-                        _words.Append(scaleNames[i]); //append the scale name
+                        words.Append(threeDigitWords);
+                        words.Append(scaleNames[i]);
                     }
-                    
+
                 }
             }
-            return _words.ToString();
+            return words.ToString();
         }
 
         private SortedList<int, ThreeDigitSet> BuildThreeDigitSets()
