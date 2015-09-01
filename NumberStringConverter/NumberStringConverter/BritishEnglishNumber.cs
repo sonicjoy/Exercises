@@ -83,7 +83,7 @@ namespace NumberStringConverter
             return threeDigitSets;
         }
 
-        private class ThreeDigitSet : IDigitSet
+        private class ThreeDigitSet : INumberWords
         {
             private string _unit = "0";
             private string _ten = "0";

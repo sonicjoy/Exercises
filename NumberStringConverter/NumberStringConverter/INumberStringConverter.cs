@@ -9,9 +9,4 @@
     {
         string ConvertToString();
     }
-
-    internal interface IDigitSet
-    {
-        string ConvertToString();
-    }
 }
