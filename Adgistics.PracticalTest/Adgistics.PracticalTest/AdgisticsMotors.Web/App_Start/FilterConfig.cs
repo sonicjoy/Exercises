@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace AdgisticsMotors.Web
+namespace AdgisticsMotorsReport.Web
 {
     public class FilterConfig
     {

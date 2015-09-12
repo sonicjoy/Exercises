@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
 
-namespace AdgisticsMotors.Web
+namespace AdgisticsMotorsReport.Web
 {
     public static class WebApiConfig
     {

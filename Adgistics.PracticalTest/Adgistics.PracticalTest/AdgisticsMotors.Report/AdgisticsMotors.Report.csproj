@@ -49,9 +49,6 @@
     <Compile Include="Utils\Threading\WorkFailedProcessingEventArgs.cs" />
     <Compile Include="Utils\Threading\WorkSucceededProcessingEventArgs.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="DealershipsList.txt" />
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
-namespace AdgisticsMotors.Web.Hubs
+namespace AdgisticsMotorsReport.Web.Hubs
 {
     public class DataHub : Hub
     {

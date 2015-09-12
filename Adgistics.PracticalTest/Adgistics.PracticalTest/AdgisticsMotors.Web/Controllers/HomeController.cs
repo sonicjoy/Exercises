@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AdgisticsMotors.Web.Controllers
+namespace AdgisticsMotorsReport.Web.Controllers
 {
     public class HomeController : Controller
     {
