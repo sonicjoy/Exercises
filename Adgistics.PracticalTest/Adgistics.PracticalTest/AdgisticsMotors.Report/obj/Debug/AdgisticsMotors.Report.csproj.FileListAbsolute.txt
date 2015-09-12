@@ -1,0 +1,5 @@
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report\bin\Debug\AdgisticsMotorsReport.dll
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report\bin\Debug\AdgisticsMotorsReport.pdb
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report\obj\Debug\AdgisticsMotors.Report.csprojResolveAssemblyReference.cache
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report\obj\Debug\AdgisticsMotorsReport.dll
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report\obj\Debug\AdgisticsMotorsReport.pdb

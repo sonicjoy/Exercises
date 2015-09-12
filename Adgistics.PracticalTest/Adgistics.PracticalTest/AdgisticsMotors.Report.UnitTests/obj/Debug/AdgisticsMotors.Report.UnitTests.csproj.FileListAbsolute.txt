@@ -1,0 +1,9 @@
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.Tests.dll
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.Tests.pdb
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.dll
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\nunit.framework.dll
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.pdb
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\nunit.framework.xml
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotors.Report.UnitTests.csprojResolveAssemblyReference.cache
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotorsReport.Tests.dll
+D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotorsReport.Tests.pdb
