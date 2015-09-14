@@ -5,19 +5,23 @@ using System.Web;
 using System;
 using System.Collections.Generic;
 using AdgisticsMotorsReport.Utils.Threading;
+using System.Threading;
 
 namespace AdgisticsMotorsReport.Web
 {
     public class ReportController : ApiController
     {
         static List<DealershipData> dealershipDataSet;
-        static List<DataCollector> failedWork;
 
         [HttpGet]
         public void PrepareReports()
-        { 
+        {
             var dealershipList = GetDealershipList();
-            dealershipDataSet = GetDealershipData(dealershipList);         
+            var outstanding = new List<DataCollector>();
+            var processing = new List<DataCollector>();
+            var failed = new List<DataCollector>();
+            var status = new QueueStatus(outstanding, processing, failed);
+            CollectDealershipData(dealershipList, out status);    
         }
 
         [HttpGet]
@@ -38,27 +42,27 @@ namespace AdgisticsMotorsReport.Web
             return lowStocker;
         }
 
-        private List<DealershipData> GetDealershipData(List<string[]> dealershipList)
+        private void CollectDealershipData(List<string[]> dealershipList, out QueueStatus status)
         {
             dealershipDataSet = new List<DealershipData>();
-            var service = new DealershipService();
-            var retryList = dealershipList.Select(d => (string[])d.Clone()).ToList() ;
-            while(retryList.Any())
+            var workerThreads = 50;
+            using (var worker = new BackgroundWorkerQueue(workerThreads))
             {
-                var dealership = retryList.FirstOrDefault();
-                retryList.Remove(dealership);
-                try
+                foreach (var dealership in dealershipList)
                 {
-                    var dealershipData = service.GetDealershipData(dealership[0], new Uri(dealership[1]));
-                    dealershipDataSet.Add(dealershipData);
+                    var work = new DataCollector(worker, dealership[0], new Uri(dealership[1]));
+                    worker.Enqueue(work);
                 }
-                catch(HttpException)
-                {
-                    retryList.Add(dealership);
-                }
-            }
 
-            return dealershipDataSet;
+                status = worker.Status();
+                while(status.Backlog.Any())
+                {
+                    Thread.Sleep(1000);
+                    status = worker.Status();
+                }
+                worker.Stop();
+                worker.ClearErrors();
+            }
         }
 
         private List<string[]> GetDealershipList()
@@ -70,16 +74,13 @@ namespace AdgisticsMotorsReport.Web
 
         private sealed class DataCollector : WorkBase
         {
-            string _id = string.Empty;
-            Uri _uri;
+            private readonly string _id;
+            private readonly Uri _uri;
             private readonly BackgroundWorkerQueue _workerQueue;
-            DealershipData _dealershipData;
 
-            DataCollector(BackgroundWorkerQueue workerQueue, string id, Uri uri)
+            public DataCollector(BackgroundWorkerQueue workerQueue, string id, Uri uri)
             {
                 _workerQueue = workerQueue;
-                this._workerQueue.WorkSucceeded += this.OnWorkSucceed;
-                this._workerQueue.WorkFailed += this.OnWorkFailed;
                 _id = id;
                 _uri = uri;
             }
@@ -89,22 +90,13 @@ namespace AdgisticsMotorsReport.Web
                 var service = new DealershipService();
                 try
                 {
-                    _dealershipData = service.GetDealershipData(_id, _uri);
+                    var _dealershipData = service.GetDealershipData(_id, _uri);
+                    dealershipDataSet.Add(_dealershipData);
                 }
-                catch(HttpException ex)
+                catch(HttpException)
                 {
-                    throw new ApplicationException(ex.Message, ex.InnerException);
+                    this._workerQueue.ReAddFailed(new List<DataCollector> { this });
                 }
-            }
-
-            void OnWorkSucceed(object sender, WorkSucceededProcessingEventArgs e)
-            {
-                dealershipDataSet.Add(_dealershipData);
-            }
-
-            void OnWorkFailed(object sender, WorkFailedProcessingEventArgs e)
-            {
-                this._workerQueue.ReAddFailed(new List<DataCollector> { this });
             }
         }
 
