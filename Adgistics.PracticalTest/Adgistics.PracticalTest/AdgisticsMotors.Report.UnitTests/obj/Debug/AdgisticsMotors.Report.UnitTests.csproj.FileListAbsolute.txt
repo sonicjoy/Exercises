@@ -7,3 +7,16 @@ D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.Practical
 D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotors.Report.UnitTests.csprojResolveAssemblyReference.cache
 D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotorsReport.Tests.dll
 D:\Google Drive\Interviews\Adgistics\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotorsReport.Tests.pdb
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.Tests.dll
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.Tests.pdb
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.dll
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\nunit.framework.dll
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\AdgisticsMotorsReport.pdb
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\nunit.framework.xml
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotors.Report.UnitTests.csprojResolveAssemblyReference.cache
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotorsReport.Tests.dll
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\obj\Debug\AdgisticsMotorsReport.Tests.pdb
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\nunit.core.dll
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\nunit.core.interfaces.dll
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\nunit.util.dll
+D:\GitHub\Exercises\Adgistics.PracticalTest\Adgistics.PracticalTest\AdgisticsMotors.Report.UnitTests\bin\Debug\NUnit.VisualStudio.TestAdapter.dll
