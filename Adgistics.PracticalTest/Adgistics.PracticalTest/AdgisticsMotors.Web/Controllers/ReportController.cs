@@ -87,7 +87,7 @@ namespace AdgisticsMotorsReport.Web
 
                 dataHub.SendTotal(dealershipList.Count);
                 var status = worker.Status();
-                while(status.Backlog.Any() || status.Processing.Any() || status.Failed.Any() || dealershipDataSet.Count < dealershipList.Count)
+                while(status.Backlog.Any() || status.Processing.Any() || status.Failed.Any())
                 {
                     Thread.Sleep(1000);
                     status = worker.Status();
@@ -112,7 +112,7 @@ namespace AdgisticsMotorsReport.Web
             private readonly Uri _uri;
             private readonly BackgroundWorkerQueue _workerQueue;
             private Object thisLock = new Object();
-            private DealershipData _dealershipData;
+            private static DealershipData _dealershipData;
 
             public DataCollector(BackgroundWorkerQueue workerQueue, string id, Uri uri)
             {
@@ -130,9 +130,10 @@ namespace AdgisticsMotorsReport.Web
             public override void Process()
             {
                 var service = new DealershipService();
-                _dealershipData = service.GetDealershipData(_id, _uri);
+
                 lock (thisLock)
                 {
+                    _dealershipData = service.GetDealershipData(_id, _uri);
                     if (_dealershipData == null)
                         throw new ApplicationException("Null data");
                     else
