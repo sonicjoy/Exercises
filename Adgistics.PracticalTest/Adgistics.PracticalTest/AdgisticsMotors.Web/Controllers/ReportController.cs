@@ -14,6 +14,7 @@ namespace AdgisticsMotorsReport.Web
     {
         static List<DealershipData> dealershipDataSet;
         private List<DealershipData> dummyDataList;
+        private readonly static object theLock = new object();
 
         [HttpGet]
         public void PrepareReports()
@@ -87,14 +88,17 @@ namespace AdgisticsMotorsReport.Web
 
                 dataHub.SendTotal(dealershipList.Count);
                 var status = worker.Status();
-                while(status.Backlog.Any() || status.Processing.Any() || status.Failed.Any())
+                do
                 {
                     if (status.Failed.Any())
                         worker.ReAddFailed(status.Failed);
-                    status = worker.Status();
-                    dataHub.SendProgress(dealershipDataSet.Count, status.Processing.Count(), status.Failed.Count());
                     Thread.Sleep(1000);
-                }
+                    status = worker.Status();
+                    lock (theLock)
+                    {
+                        dataHub.SendProgress(dealershipDataSet.Count, status.Processing.Count(), status.Failed.Count());
+                    }
+                } while (status.Backlog.Any() || status.Processing.Any() || status.Failed.Any());
                 worker.Stop();
                 worker.ClearErrors();
                 dataHub.CompleteDataCollection();
@@ -113,7 +117,7 @@ namespace AdgisticsMotorsReport.Web
             private readonly string _id;
             private readonly Uri _uri;
             private DealershipData _dealershipData;
-            private object theLock = new object();
+            private readonly static object theLock = new object();
 
             public DataCollector(string id, Uri uri)
             {
