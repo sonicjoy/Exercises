@@ -13,6 +13,7 @@ namespace AdgisticsMotorsReport.Web
     public class ReportController : ApiController
     {
         static List<DealershipData> dealershipDataSet;
+        private List<DealershipData> dummyDataList;
 
         [HttpGet]
         public void PrepareReports()
@@ -27,10 +28,10 @@ namespace AdgisticsMotorsReport.Web
         }
 
         [HttpGet]
-        public List<DealershipData> GetReport(string type)
+        public List<DealershipData> GetReport(string reportType)
         {
-            if (type == "top_performer") return GetTopPerformer();
-            if (type == "low_stocker") return GetLowStocker();
+            if (reportType == "top_performer") return GetTopPerformer();
+            if (reportType == "low_stocker") return GetLowStocker();
             return new List<DealershipData>();
         }
 
@@ -38,8 +39,13 @@ namespace AdgisticsMotorsReport.Web
         public List<DealershipData> GetTopPerformer(int topNumber = 100)
         {
             var topPerformer = new List<DealershipData>();
-            if (dealershipDataSet.Any())
+            if (dealershipDataSet != null && dealershipDataSet.Any())
                 topPerformer = dealershipDataSet.OrderByDescending(d => d.TotalSales).Take(topNumber).ToList();
+            else //for testing
+            {
+                GenerateDummyDataList(topNumber);
+                topPerformer = dummyDataList.OrderByDescending(d => d.TotalSales).Take(topNumber).ToList();
+            }
             return topPerformer;
         }
 
@@ -47,9 +53,24 @@ namespace AdgisticsMotorsReport.Web
         public List<DealershipData> GetLowStocker(int thresholdNumber = 10)
         {
             var lowStocker = new List<DealershipData>();
-            if (dealershipDataSet.Any())
+            if (dealershipDataSet != null && dealershipDataSet.Any())
                 lowStocker = dealershipDataSet.FindAll(d => d.AvailableStock < thresholdNumber);
+            else //for testing
+            {
+                GenerateDummyDataList(100);
+                lowStocker = dummyDataList.FindAll(d => d.AvailableStock < thresholdNumber);
+            }
             return lowStocker;
+        }
+
+        private void GenerateDummyDataList(int listSize)
+        {
+            dummyDataList = new List<DealershipData>();
+            for(var i = 0; i < listSize; i++)
+            {
+                var dealershipData = new DealershipData { DealershipIdentifier = i.ToString(), AvailableStock = i, TotalSales = i * 10000 };
+                dummyDataList.Add(dealershipData);
+            }
         }
 
         private void CollectDealershipData(List<string[]> dealershipList, DataHub dataHub)
@@ -66,7 +87,7 @@ namespace AdgisticsMotorsReport.Web
 
                 dataHub.SendTotal(dealershipList.Count);
                 var status = worker.Status();
-                while(status.Processing.Any())
+                while(status.Backlog.Any() || status.Processing.Any() || status.Failed.Any())
                 {
                     Thread.Sleep(1000);
                     status = worker.Status();
@@ -98,7 +119,6 @@ namespace AdgisticsMotorsReport.Web
                 _workerQueue = workerQueue;
                 _id = id;
                 _uri = uri;
-
                 _workerQueue.WorkFailed += this.OnWorkFailed;
             }
 
@@ -111,14 +131,19 @@ namespace AdgisticsMotorsReport.Web
             {
                 var service = new DealershipService();
                 _dealershipData = service.GetDealershipData(_id, _uri);
-                if (_dealershipData != null)
-                    lock (thisLock)
-                    {
+                while (_dealershipData == null)
+                {
+                    Monitor.Wait(thisLock);
+                }
+                lock (thisLock)
+                {
+                    if (_dealershipData == null)
+                        throw new ApplicationException("Null data");
+                    else
                         dealershipDataSet.Add(_dealershipData);
-                    }
-                else
-                    throw new ApplicationException("Null data");
+                }             
             }
+
         }
 
         private abstract class WorkBase : IWork

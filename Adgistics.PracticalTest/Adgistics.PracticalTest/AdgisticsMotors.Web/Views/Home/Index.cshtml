@@ -20,7 +20,20 @@
         </div>
     </div>
     <p id="reportsReady" class="success" hidden="hidden">Reports are ready!</p>
-    <button id="btnGetTopPerformer" class="btn btn-lg btn-success" type="button" disabled>Get Top 100 Performer Report</button>
-    <button id="btnGetLowStocker" class="btn btn-lg btn-success" type="button" disabled>Get Low Stocker Report</button>
-    <p id="report"></p>
+    <button id="btnGetTopPerformer" class="btn btn-lg btn-success" type="button" >Get Top 100 Performer Report</button>
+    <button id="btnGetLowStocker" class="btn btn-lg btn-success" type="button" >Get Low Stocker Report</button>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Available Stock</th>
+                    <th>Total Sales</th>
+                </tr>
+            </thead>
+            <tbody id="tableContent">
+                
+            </tbody>
+        </table>
+    </div>
 </div>

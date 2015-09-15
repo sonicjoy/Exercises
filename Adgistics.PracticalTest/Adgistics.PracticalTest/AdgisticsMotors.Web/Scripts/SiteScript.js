@@ -22,7 +22,7 @@
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                $('#report').html(data);
+                
             },
             error: function (x, y, z) {
                 alert(x + '\n' + y + '\n' + z);
@@ -30,13 +30,18 @@
         });
     }
 
-    function GetReports(type) {
+    function GetReports(reportType) {
         $.ajax({
-            url: '/api/report/getreport/type',
+            url: '/api/report/getreport',
             type: 'GET',
+            data: { 'reportType' : reportType },
             dataType: 'json',
-            success: function (data) {
-
+            success: function (report) {
+                $('#tableContent').empty();
+                $.each(report, function (intValue, currentElement) {
+                    var currentRow = '<tr><td>' + currentElement.DealershipIdentifier + '</td><td>' + currentElement.AvailableStock + '</td><td>' + currentElement.TotalSales + '</td></tr>';
+                    $('#tableContent').append(currentRow);
+                });
             },
             error: function (x, y, z) {
                 alert(x + '\n' + y + '\n' + z);
