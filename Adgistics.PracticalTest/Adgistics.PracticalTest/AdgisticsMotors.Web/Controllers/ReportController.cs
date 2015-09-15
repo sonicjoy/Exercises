@@ -14,7 +14,7 @@ namespace AdgisticsMotorsReport.Web
     {
         static List<DealershipData> dealershipDataSet;
         private List<DealershipData> dummyDataList;
-        private readonly static object readerLock = new object();
+        private readonly static object theLock = new object();
 
         [HttpGet]
         public void PrepareReports()
@@ -96,7 +96,7 @@ namespace AdgisticsMotorsReport.Web
                     Thread.Sleep(1000);
                     status = worker.Status();
 
-                    if (Monitor.TryEnter(readerLock, 100))
+                    if (Monitor.TryEnter(theLock, 100))
                     {
                         try
                         {
@@ -104,7 +104,7 @@ namespace AdgisticsMotorsReport.Web
                         }
                         finally
                         {
-                            Monitor.Exit(readerLock);
+                            Monitor.Exit(theLock);
                         }
                     }
 
@@ -128,7 +128,7 @@ namespace AdgisticsMotorsReport.Web
             private readonly string _id;
             private readonly Uri _uri;
             private DealershipData _dealershipData;
-            private readonly static object writerLock = new object();
+            static readonly DealershipService service = new DealershipService();
 
             public DataCollector(string id, Uri uri)
             {
@@ -138,9 +138,8 @@ namespace AdgisticsMotorsReport.Web
 
             public override void Process()
             {
-                var service = new DealershipService();
                 _dealershipData = service.GetDealershipData(_id, _uri);
-                if (Monitor.TryEnter(writerLock, 300))
+                if (Monitor.TryEnter(theLock, 300))
                 {
                     try
                     {
@@ -148,7 +147,7 @@ namespace AdgisticsMotorsReport.Web
                     }
                     finally
                     {
-                        Monitor.Exit(writerLock);
+                        Monitor.Exit(theLock);
                     }
                 }
                 else

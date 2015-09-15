@@ -6,10 +6,10 @@
     <h1>Report Centre</h1>
     <p class="lead">Please prepare the reports first. This process will take a while depending on the number of total dealerships.</p>
     <button id="btnPrepareReports" class="btn btn-lg btn-primary" type="button">Prepare Reports</button>
-    <p id="total"></p>
-    <p class="success"><span id="completedSpan"></span></p>
-    <p class="warning"><span id="processingSpan"></span></p>
-    <p class="danger"><span id="failedSpan"></span></p>
+    <p id="total" class="alert-info"></p>
+    <p class="alert-success"><span id="completedSpan"></span></p>
+    <p class="alert-warning"><span id="processingSpan"></span></p>
+    <p class="alert-danger"><span id="failedSpan"></span></p>
     <div class="progress">
         <div id="completedBar" class="progress-bar progress-bar-success" role="progressbar" style="width:0%">   
             <span id="completedPcSpan"></span>        
@@ -19,7 +19,7 @@
         <div id="failedBar" class="progress-bar progress-bar-danger" role="progressbar" style="width:0%">        
         </div>
     </div>
-    <p id="reportsReady" class="success" hidden="hidden">Reports are ready!</p>
+    <p id="reportsReady" class="alert-success" hidden="hidden">Reports are ready!</p>
     <button id="btnGetTopPerformer" class="btn btn-lg btn-success" type="button" >Get Top 100 Performer Report</button>
     <button id="btnGetLowStocker" class="btn btn-lg btn-success" type="button" >Get Low Stocker Report</button>
     <div>
