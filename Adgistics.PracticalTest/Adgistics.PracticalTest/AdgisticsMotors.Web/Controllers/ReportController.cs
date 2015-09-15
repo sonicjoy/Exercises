@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using AdgisticsMotorsReport.Utils.Threading;
 using System.Threading;
+using AdgisticsMotorsReport.Web.Hubs;
 
 namespace AdgisticsMotorsReport.Web
 {
@@ -20,8 +21,17 @@ namespace AdgisticsMotorsReport.Web
             var outstanding = new List<DataCollector>();
             var processing = new List<DataCollector>();
             var failed = new List<DataCollector>();
-            var status = new QueueStatus(outstanding, processing, failed);
-            CollectDealershipData(dealershipList, out status);    
+
+            var dataHub = new DataHub();
+            CollectDealershipData(dealershipList, dataHub);
+        }
+
+        [HttpGet]
+        public List<DealershipData> GetReport(string type)
+        {
+            if (type == "top_performer") return GetTopPerformer();
+            if (type == "low_stocker") return GetLowStocker();
+            return new List<DealershipData>();
         }
 
         [HttpGet]
@@ -42,10 +52,10 @@ namespace AdgisticsMotorsReport.Web
             return lowStocker;
         }
 
-        private void CollectDealershipData(List<string[]> dealershipList, out QueueStatus status)
+        private void CollectDealershipData(List<string[]> dealershipList, DataHub dataHub)
         {
             dealershipDataSet = new List<DealershipData>();
-            var workerThreads = 50;
+            var workerThreads = 99;
             using (var worker = new BackgroundWorkerQueue(workerThreads))
             {
                 foreach (var dealership in dealershipList)
@@ -54,14 +64,16 @@ namespace AdgisticsMotorsReport.Web
                     worker.Enqueue(work);
                 }
 
-                status = worker.Status();
+                var status = worker.Status();
                 while(status.Backlog.Any())
                 {
                     Thread.Sleep(1000);
                     status = worker.Status();
+                    dataHub.SendProgress(status.ToString());
                 }
                 worker.Stop();
                 worker.ClearErrors();
+                dataHub.CompleteDataCollection();
             }
         }
 
@@ -77,26 +89,34 @@ namespace AdgisticsMotorsReport.Web
             private readonly string _id;
             private readonly Uri _uri;
             private readonly BackgroundWorkerQueue _workerQueue;
+            private Object thisLock = new Object();
+            private DealershipData _dealershipData;
 
             public DataCollector(BackgroundWorkerQueue workerQueue, string id, Uri uri)
             {
                 _workerQueue = workerQueue;
                 _id = id;
                 _uri = uri;
+
+                _workerQueue.WorkFailed += this.OnWorkFailed;
+            }
+
+            private void OnWorkFailed(object sender, WorkFailedProcessingEventArgs e)
+            {
+                this._workerQueue.ReAddFailed(new List<DataCollector> { this });
             }
 
             public override void Process()
             {
                 var service = new DealershipService();
-                try
-                {
-                    var _dealershipData = service.GetDealershipData(_id, _uri);
-                    dealershipDataSet.Add(_dealershipData);
-                }
-                catch(HttpException)
-                {
-                    this._workerQueue.ReAddFailed(new List<DataCollector> { this });
-                }
+                _dealershipData = service.GetDealershipData(_id, _uri);
+                if (_dealershipData != null)
+                    lock (thisLock)
+                    {
+                        dealershipDataSet.Add(_dealershipData);
+                    }
+                else
+                    throw new ApplicationException("Null data");
             }
         }
 

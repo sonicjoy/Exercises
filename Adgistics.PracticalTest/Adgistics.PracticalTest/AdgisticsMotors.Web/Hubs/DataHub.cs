@@ -8,10 +8,16 @@ namespace AdgisticsMotorsReport.Web.Hubs
 {
     public class DataHub : Hub
     {
-        public void SendProgress(string name, string message)
+        IHubContext context = GlobalHost.ConnectionManager.GetHubContext<DataHub>();
+
+        public void SendProgress(string status)
         {
-            // Call the addNewMessageToPage method to update clients.
-            Clients.Caller.addNewMessageToPage(name, message);
+            context.Clients.All.addQueueStatusToPage(status);
+        }
+
+        public void CompleteDataCollection()
+        {
+            context.Clients.All.completeDataCollection();
         }
     }
 }
