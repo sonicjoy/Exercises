@@ -10,9 +10,14 @@ namespace AdgisticsMotorsReport.Web.Hubs
     {
         IHubContext context = GlobalHost.ConnectionManager.GetHubContext<DataHub>();
 
-        public void SendProgress(string status)
+        public void SendTotal(int total)
         {
-            context.Clients.All.addQueueStatusToPage(status);
+            context.Clients.All.addTotalToPage(total);
+        }
+
+        public void SendProgress(int completed, int processing, int failed)
+        {
+            context.Clients.All.addQueueStatusToPage(completed, processing, failed);
         }
 
         public void CompleteDataCollection()

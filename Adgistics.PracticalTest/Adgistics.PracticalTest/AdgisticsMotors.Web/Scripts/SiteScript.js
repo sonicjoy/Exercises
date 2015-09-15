@@ -1,6 +1,10 @@
 ﻿$(function () {
+    if ($('#total').html().length > 0) $('#btnPrepareReports').prop('disabled', true);
+    $('#reportsReady').hide();
     $('#btnPrepareReports').click(function () {
         $(this).prop('disabled', true);
+        $('#btnGetTopPerformer').prop('disabled', true);
+        $('#btnGetLowStocker').prop('disabled', true);
         PrepareReports();
     });
 
@@ -43,15 +47,35 @@
 
     // Declare a proxy to reference the hub.
     var data = $.connection.dataHub;
-    // Create a function that the hub can call to broadcast messages.
-    data.client.addQueueStatusToPage = function (status) {
-        $('#status').html(status);
+    var totalDealerships = 0;
+    data.client.addTotalToPage = function (total) {
+        $('#total').html(total + ' total dealerships');
+        totalDealerships = total;
+    };
+
+    data.client.addQueueStatusToPage = function (completed, processing, failed) {
+        if (totalDealerships > 0) {
+            var completedPc = completed / totalDealerships * 100;
+            var processingPc = processing / totalDealerships * 100;
+            var failedPc = failed / totalDealerships * 100;
+
+            $('#completedBar').width(completedPc + '%');
+            $('#completedSpan').html(completed + ' completed');
+            $('#completedPcSpan').html(completedPc.toFixed(2) + '% completed');
+
+            $('#processingBar').width(processingPc + '%');
+            $('#processingSpan').html(processing + ' in processing');
+
+            $('#failedBar').width(failedPc + '%');
+            $('#failedSpan').html(failed + ' failed');
+        }
     };
 
     data.client.completeDataCollection = function () {
         $('#btnPrepareReports').prop('disabled', false);
-        $('#btnGetTopPerformer').prop('disabled', true);
-        $('#btnGetLowStocker').prop('disabled', true);
+        $('#btnGetTopPerformer').prop('disabled', false);
+        $('#btnGetLowStocker').prop('disabled', false);
+        $('#reportsReady').show();
     }
     // Start the connection.
     $.connection.hub.start();

@@ -64,12 +64,13 @@ namespace AdgisticsMotorsReport.Web
                     worker.Enqueue(work);
                 }
 
+                dataHub.SendTotal(dealershipList.Count);
                 var status = worker.Status();
-                while(status.Backlog.Any())
+                while(status.Processing.Any())
                 {
                     Thread.Sleep(1000);
                     status = worker.Status();
-                    dataHub.SendProgress(status.ToString());
+                    dataHub.SendProgress(dealershipDataSet.Count, status.Processing.Count(), status.Failed.Count());
                 }
                 worker.Stop();
                 worker.ClearErrors();
