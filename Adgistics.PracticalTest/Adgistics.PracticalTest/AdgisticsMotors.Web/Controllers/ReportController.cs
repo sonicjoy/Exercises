@@ -81,7 +81,7 @@ namespace AdgisticsMotorsReport.Web
             {
                 foreach (var dealership in dealershipList)
                 {
-                    var work = new DataCollector(worker, dealership[0], new Uri(dealership[1]));
+                    var work = new DataCollector(dealership[0], new Uri(dealership[1]));
                     worker.Enqueue(work);
                 }
 
@@ -89,9 +89,11 @@ namespace AdgisticsMotorsReport.Web
                 var status = worker.Status();
                 while(status.Backlog.Any() || status.Processing.Any() || status.Failed.Any())
                 {
-                    Thread.Sleep(1000);
+                    if (status.Failed.Any())
+                        worker.ReAddFailed(status.Failed);
                     status = worker.Status();
                     dataHub.SendProgress(dealershipDataSet.Count, status.Processing.Count(), status.Failed.Count());
+                    Thread.Sleep(1000);
                 }
                 worker.Stop();
                 worker.ClearErrors();
@@ -110,35 +112,22 @@ namespace AdgisticsMotorsReport.Web
         {
             private readonly string _id;
             private readonly Uri _uri;
-            private readonly BackgroundWorkerQueue _workerQueue;
-            private Object thisLock = new Object();
             private static DealershipData _dealershipData;
 
-            public DataCollector(BackgroundWorkerQueue workerQueue, string id, Uri uri)
+            public DataCollector(string id, Uri uri)
             {
-                _workerQueue = workerQueue;
                 _id = id;
                 _uri = uri;
-                _workerQueue.WorkFailed += this.OnWorkFailed;
-            }
-
-            private void OnWorkFailed(object sender, WorkFailedProcessingEventArgs e)
-            {
-                this._workerQueue.ReAddFailed(new List<DataCollector> { this });
             }
 
             public override void Process()
             {
                 var service = new DealershipService();
-
-                lock (thisLock)
-                {
-                    _dealershipData = service.GetDealershipData(_id, _uri);
-                    if (_dealershipData == null)
-                        throw new ApplicationException("Null data");
-                    else
-                        dealershipDataSet.Add(_dealershipData);
-                }             
+                _dealershipData = service.GetDealershipData(_id, _uri);
+                if (_dealershipData == null)
+                    throw new ApplicationException("Null DealershipData");
+                else
+                    dealershipDataSet.Add(_dealershipData);       
             }
 
         }
