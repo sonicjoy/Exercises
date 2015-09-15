@@ -112,7 +112,8 @@ namespace AdgisticsMotorsReport.Web
         {
             private readonly string _id;
             private readonly Uri _uri;
-            private static DealershipData _dealershipData;
+            private DealershipData _dealershipData;
+            private object theLock = new object();
 
             public DataCollector(string id, Uri uri)
             {
@@ -127,7 +128,12 @@ namespace AdgisticsMotorsReport.Web
                 if (_dealershipData == null)
                     throw new ApplicationException("Null DealershipData");
                 else
-                    dealershipDataSet.Add(_dealershipData);       
+                {
+                    lock (theLock)
+                    {
+                        dealershipDataSet.Add(_dealershipData);
+                    }
+                }
             }
 
         }
