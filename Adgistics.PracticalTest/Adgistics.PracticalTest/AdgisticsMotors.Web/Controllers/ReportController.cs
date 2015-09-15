@@ -96,10 +96,18 @@ namespace AdgisticsMotorsReport.Web
                     Thread.Sleep(1000);
                     status = worker.Status();
 
-                    lock (readerLock)
+                    if (Monitor.TryEnter(readerLock, 100))
                     {
-                        completed = dealershipDataSet.Count;        
+                        try
+                        {
+                            completed = dealershipDataSet.Count;
+                        }
+                        finally
+                        {
+                            Monitor.Exit(readerLock);
+                        }
                     }
+
                     dataHub.SendProgress(completed, status.Processing.Count(), status.Failed.Count());
                 } while (status.Backlog.Any() || status.Processing.Any() || status.Failed.Any());
                 worker.Stop();
