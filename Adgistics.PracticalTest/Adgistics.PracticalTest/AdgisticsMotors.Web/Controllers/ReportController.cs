@@ -14,7 +14,6 @@ namespace AdgisticsMotorsReport.Web
     {
         static List<DealershipData> dealershipDataSet;
         private List<DealershipData> dummyDataList;
-        private readonly static object theLock = new object();
 
         [HttpGet]
         public void PrepareReports()
@@ -94,10 +93,7 @@ namespace AdgisticsMotorsReport.Web
                         worker.ReAddFailed(status.Failed);
                     Thread.Sleep(1000);
                     status = worker.Status();
-                    lock (theLock)
-                    {
-                        dataHub.SendProgress(dealershipDataSet.Count, status.Processing.Count(), status.Failed.Count());
-                    }
+                    dataHub.SendProgress(dealershipList.Count - status.Backlog.Count(), status.Processing.Count(), status.Failed.Count());
                 } while (status.Backlog.Any() || status.Processing.Any() || status.Failed.Any());
                 worker.Stop();
                 worker.ClearErrors();
