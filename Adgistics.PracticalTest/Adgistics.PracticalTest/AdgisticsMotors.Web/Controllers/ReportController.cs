@@ -87,7 +87,7 @@ namespace AdgisticsMotorsReport.Web
 
                 dataHub.SendTotal(dealershipList.Count);
                 var status = worker.Status();
-                while(status.Backlog.Any() || status.Processing.Any() || status.Failed.Any())
+                while(status.Backlog.Any() || status.Processing.Any() || status.Failed.Any() || dealershipDataSet.Count < dealershipList.Count)
                 {
                     Thread.Sleep(1000);
                     status = worker.Status();
