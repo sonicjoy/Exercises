@@ -131,10 +131,6 @@ namespace AdgisticsMotorsReport.Web
             {
                 var service = new DealershipService();
                 _dealershipData = service.GetDealershipData(_id, _uri);
-                while (_dealershipData == null)
-                {
-                    Monitor.Wait(thisLock);
-                }
                 lock (thisLock)
                 {
                     if (_dealershipData == null)
