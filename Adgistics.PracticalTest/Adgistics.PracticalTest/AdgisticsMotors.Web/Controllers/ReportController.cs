@@ -14,6 +14,7 @@ namespace AdgisticsMotorsReport.Web
     {
         static List<DealershipData> dealershipDataSet;
         private List<DealershipData> dummyDataList;
+        private readonly static object readerLock = new object();
 
         [HttpGet]
         public void PrepareReports()
@@ -86,6 +87,7 @@ namespace AdgisticsMotorsReport.Web
                 }
 
                 dataHub.SendTotal(dealershipList.Count);
+                var completed = 0;
                 var status = worker.Status();
                 do
                 {
@@ -93,7 +95,12 @@ namespace AdgisticsMotorsReport.Web
                         worker.ReAddFailed(status.Failed);
                     Thread.Sleep(1000);
                     status = worker.Status();
-                    dataHub.SendProgress(dealershipList.Count - status.Backlog.Count(), status.Processing.Count(), status.Failed.Count());
+
+                    lock (readerLock)
+                    {
+                        completed = dealershipDataSet.Count;        
+                    }
+                    dataHub.SendProgress(completed, status.Processing.Count(), status.Failed.Count());
                 } while (status.Backlog.Any() || status.Processing.Any() || status.Failed.Any());
                 worker.Stop();
                 worker.ClearErrors();
@@ -113,7 +120,7 @@ namespace AdgisticsMotorsReport.Web
             private readonly string _id;
             private readonly Uri _uri;
             private DealershipData _dealershipData;
-            private readonly static object theLock = new object();
+            private readonly static object writerLock = new object();
 
             public DataCollector(string id, Uri uri)
             {
@@ -125,14 +132,20 @@ namespace AdgisticsMotorsReport.Web
             {
                 var service = new DealershipService();
                 _dealershipData = service.GetDealershipData(_id, _uri);
-                if (_dealershipData == null)
-                    throw new ApplicationException("Null DealershipData");
-                else
+                if (Monitor.TryEnter(writerLock, 300))
                 {
-                    lock (theLock)
+                    try
                     {
                         dealershipDataSet.Add(_dealershipData);
                     }
+                    finally
+                    {
+                        Monitor.Exit(writerLock);
+                    }
+                }
+                else
+                {
+                    throw new TimeoutException();
                 }
             }
 
