@@ -38,8 +38,8 @@ namespace WordSearcher
                     {
                         var newStartWord = frontier.OrderBy(w => WordDictionary.GetWordDistance(w, endWord)).FirstOrDefault();
                         frontier.Remove(newStartWord);
-                        var newNeighbors = wordDict.WordSet[newStartWord].Except(explored).Except(frontier).ToList();
                         explored.Add(newStartWord);
+                        var newNeighbors = wordDict.WordSet[newStartWord].Except(explored).Except(frontier).ToList();
                         frontier.AddRange(newNeighbors);
                         resultSet.Add(newStartWord);
                     }
