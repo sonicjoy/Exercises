@@ -35,14 +35,23 @@ namespace WordSearcher
                 {
                     var newStartWord = frontier.OrderBy(w => WordDictionary.GetWordDistance(w, endWord)).FirstOrDefault();
                     frontier.Remove(newStartWord);
-                    resultSet.Add(newStartWord);
+                    explored.Add(newStartWord);
                     if (newStartWord == endWord)
                     {
+                        resultSet.Add(endWord);
                         break;
                     }
-                    explored.Add(newStartWord);
+
                     var newNeighbors = wordDict.WordSet[newStartWord].Except(explored).Except(frontier).ToList();
-                    frontier.AddRange(newNeighbors);
+                    if (newNeighbors.Any())
+                    {
+                        resultSet.Add(newStartWord);
+                        frontier.AddRange(newNeighbors);
+                    }
+                    else
+                    {
+                        
+                    }
                 }
                 if (!resultSet.Contains(endWord))
                 { 

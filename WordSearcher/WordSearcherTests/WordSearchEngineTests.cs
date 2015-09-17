@@ -137,5 +137,21 @@ namespace WordSearcher.Tests
             Assert.IsFalse(result.Contains("abza"));
             Assert.IsFalse(result.Contains("azza"));
         }
+
+        [TestMethod]
+        public void GetPathResultTestSpecialCaseTrickRoutes()
+        {
+            var stringArraySpecial = new string[] { "aaaa", "aaab", "baaa", "aabb", "baza", "bazz", "aazz" };
+            var wordDictSpecial = new WordDictionary(stringArraySpecial);
+
+            var result = WordSearchEngine.GetPathResult(wordDictSpecial, "aaaa", "aazz");
+            Assert.IsTrue(result.Contains("aaaa"));
+            Assert.IsTrue(result.Contains("baaa"));
+            Assert.IsTrue(result.Contains("baza"));
+            Assert.IsTrue(result.Contains("bazz"));
+            Assert.IsTrue(result.Contains("aazz"));
+            Assert.IsFalse(result.Contains("aaab"));
+            Assert.IsFalse(result.Contains("aabb"));
+        }
     }
 }
