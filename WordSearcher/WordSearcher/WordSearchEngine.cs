@@ -31,19 +31,23 @@ namespace WordSearcher
                 var explored = new HashSet<string>(new string[] { startWord });
                 var frontier = wordDict.WordSet[startWord].Except(explored).ToList();
 
-                if (frontier.Any())
+                while (frontier.Any())
                 {
-
-                    while (!frontier.Contains(endWord))
+                    var newStartWord = frontier.OrderBy(w => WordDictionary.GetWordDistance(w, endWord)).FirstOrDefault();
+                    frontier.Remove(newStartWord);
+                    resultSet.Add(newStartWord);
+                    if (newStartWord == endWord)
                     {
-                        var newStartWord = frontier.OrderBy(w => WordDictionary.GetWordDistance(w, endWord)).FirstOrDefault();
-                        frontier.Remove(newStartWord);
-                        explored.Add(newStartWord);
-                        var newNeighbors = wordDict.WordSet[newStartWord].Except(explored).Except(frontier).ToList();
-                        frontier.AddRange(newNeighbors);
-                        resultSet.Add(newStartWord);
+                        break;
                     }
-                    resultSet.Add(endWord);
+                    explored.Add(newStartWord);
+                    var newNeighbors = wordDict.WordSet[newStartWord].Except(explored).Except(frontier).ToList();
+                    frontier.AddRange(newNeighbors);
+                }
+                if (!resultSet.Contains(endWord))
+                { 
+                    resultSet.Clear();
+                    resultSet.Add(startWord);
                 }
             }
             return resultSet;

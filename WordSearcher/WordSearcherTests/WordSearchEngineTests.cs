@@ -93,7 +93,7 @@ namespace WordSearcher.Tests
         [TestMethod]
         public void GetPathResultTestSpecialCaseMultipleRoutes()
         {
-            var stringArraySpecial = new string[] { "abaa", "aaaa", "abza", "abzz", "aazz", "azaa" };
+            var stringArraySpecial = new string[] { "abaa", "aaaa", "abza", "abzz", "aazz", "azza" };
             var wordDictSpecial = new WordDictionary(stringArraySpecial);
 
             var result = WordSearchEngine.GetPathResult(wordDictSpecial, "aaaa", "aazz");
@@ -102,7 +102,40 @@ namespace WordSearcher.Tests
             Assert.IsTrue(result.Contains("abza"));
             Assert.IsTrue(result.Contains("abzz"));
             Assert.IsTrue(result.Contains("aazz"));
-            Assert.IsFalse(result.Contains("azaa"));
+            Assert.IsFalse(result.Contains("azzz"));
+            Assert.IsFalse(result.Contains("azza"));
+        }
+
+        [TestMethod]
+        public void GetPathResultTestSpecialCaseCircularRoutes()
+        {
+            var stringArraySpecial = new string[] { "abaa", "aaaa", "abza", "abzz", "aazz", "azza", "aaaz" };
+            var wordDictSpecial = new WordDictionary(stringArraySpecial);
+
+            var result = WordSearchEngine.GetPathResult(wordDictSpecial, "aaaa", "aazz");
+            Assert.IsTrue(result.Contains("aaaa"));
+            Assert.IsTrue(result.Contains("aaaz"));
+            Assert.IsTrue(result.Contains("aazz"));
+            Assert.IsFalse(result.Contains("abzz"));
+            Assert.IsFalse(result.Contains("abaa"));
+            Assert.IsFalse(result.Contains("abza"));
+            Assert.IsFalse(result.Contains("azza"));
+        }
+
+        [TestMethod]
+        public void GetPathResultTestSpecialCaseNoRoutes()
+        {
+            var stringArraySpecial = new string[] { "abaa", "aaaa", "abza", "abzz", "zzzz", "azza", "aaaz" };
+            var wordDictSpecial = new WordDictionary(stringArraySpecial);
+
+            var result = WordSearchEngine.GetPathResult(wordDictSpecial, "aaaa", "zzzz");
+            Assert.IsTrue(result.Contains("aaaa"));
+            Assert.IsFalse(result.Contains("aaaz"));
+            Assert.IsFalse(result.Contains("zzzz"));
+            Assert.IsFalse(result.Contains("abzz"));
+            Assert.IsFalse(result.Contains("abaa"));
+            Assert.IsFalse(result.Contains("abza"));
+            Assert.IsFalse(result.Contains("azza"));
         }
     }
 }
