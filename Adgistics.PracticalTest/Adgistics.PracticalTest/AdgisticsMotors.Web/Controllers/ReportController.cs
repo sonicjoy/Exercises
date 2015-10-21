@@ -128,7 +128,6 @@ namespace AdgisticsMotorsReport.Web
             private readonly string _id;
             private readonly Uri _uri;
             private DealershipData _dealershipData;
-            static readonly DealershipService service = new DealershipService();
 
             public DataCollector(string id, Uri uri)
             {
@@ -138,6 +137,7 @@ namespace AdgisticsMotorsReport.Web
 
             public override void Process()
             {
+                var service = new DealershipService();
                 _dealershipData = service.GetDealershipData(_id, _uri);
                 if (Monitor.TryEnter(theLock, 300))
                 {
